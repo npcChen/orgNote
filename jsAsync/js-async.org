@@ -1,0 +1,495 @@
+* Js异步
+** 异步的几种方式
+*** 回调
+    #+BEGIN_SRC js
+      /* utils 其他文件*/
+      function cb(p, res){
+          cb2(parmas, res)
+      }
+
+      function cb2(p, res){
+          res.success('kkkkkk')
+      }
+
+
+
+
+      (req, res) => {
+          cb(params, rs);
+      }
+    #+END_SRC
+*** 事件监听
+    #+BEGIN_SRC js
+      var $ = rquire('jquery');
+      $('body').on(....)
+    #+END_SRC
+*** 发布/订阅
+*** Promise
+
+** Promise
+    [[http://liubin.org/promises-book/][Promise mini book]]
+*** what is Promise
+    [[https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise][MDN-Link: promise]]
+    /* ECMAScript 2015: */
+    /所谓Promise，简单说就是一个容器，/
+    /里面保存着某个未来才会结束的事件（通常是一个异步操作）的结果/
+
+    /* MDN */
+    /The Promise object is used for asynchronous computation.s./
+    /A Pr.omise represen..ts.. .....a.. ..v.a.lue which may be availa.ble *now*, or *in the future*, or *never*./
+
+    A Promise. is a proxy for a value not nec.essarily known when the promise is created.
+    It allows you to asso.ciate handlers to an asynchronous action's eventual success
+    value or failure reason. Thi.s lets. asynchronous methods return values like synchronous
+    methods: instead of the final value, the asynchronous method returns a promise
+    for the value at some point in the future.
+    
+    A Promise is in one of these states:
+        - pending: initial state, not fulfilled or rejected.
+        - fulfilled: meaning that the operation completed successfully.
+        - rejected: meaning that the operation failed.
+   
+      
+    Promise 对象是一个返回值的代理，这个返回值在promise对象创建时未必已知。
+    它允许你为异步操作的成功返回值或失败信息指定处理方法。
+    这使得异步方法可以像同步方法那样返回值：异步方法会返回一个包含了原返回值的 promise 对象来替代原返回值
+    
+    Promise对象有以下几种状态:
+        - pending: 初始状态, 既不是 fulfilled 也不是 rejected.
+        - fulfilled: 成功的操作.
+        - rejected: 失败的操作.
+
+    [[./promises.png]]
+    
+
+*** simple promise
+     #+BEGIN_SRC js :cmd "node" :results output
+       var a = 1;
+       var self = this;
+       function haha(){
+       var that = this;
+       var a = 100;
+       var p = function(msg) {
+           return new Promise(function(resolve, reject){
+               setTimeout(resolve(msg), 500);
+           })
+       }
+
+       var pInstance = p('\nsimple promise');
+       pInstance.then(res => {
+           var a = 10;
+           console.log(this === that);
+           console.log(this.a);
+           console.log(res);
+       })
+       }
+
+       var n = {a: 10000};
+
+
+
+     #+END_SRC
+
+     #+RESULTS:
+     : true
+     : undefined
+     : 
+     : simple promise
+
+*** Promise传值
+     [[p][MDN-Link: promise-then]]
+     #+BEGIN_SRC js :results output
+     var p = function(msg, time) {
+         return new Promise(function(resolve, reject){
+             setTimeout(resolve, time, msg);
+         })
+     }
+     var p1 = p('\nsimple promise1', 100);
+     var p2 = p('\nsimple promise2', 1000);
+     p1.then(res => {
+         console.log(res);
+         return 'biu';
+     }).then(res => {
+         console.log(res);
+         /* If onFulfilled returns a promise,
+          * the return value of then will be resolved/rejected by the promise.
+          */
+         return p2;
+     }).then(res => {
+         console.log(res);
+         throw 'err msg'
+     }).catch(err => {
+         console.log(err);
+     })
+     
+     #+END_SRC
+
+     #+RESULTS:
+     : 
+     : simple promise1
+     : biu
+     : 
+     : simple promise2
+     : err msg
+
+*** Promise all
+     #+BEGIN_SRC js :results output
+     var p = function(msg, time) {
+         return new Promise(function(resolve, reject){
+             setTimeout(resolve, time, msg);
+         })
+     }
+     
+     var p1 = p('pp1', 100);
+     var p2 = p('p2', 1000);
+     var p3 = p('pp3', 500);
+
+     Promise.all([p1, p2, p3]).then(r => {
+         console.log('\n', r);
+     })
+     #+END_SRC
+
+     #+RESULTS:
+     : 
+     :  [ 'pp1', 'p2', 'pp3' ]
+
+*** Promise race
+     #+BEGIN_SRC js :results output
+     var p = function(msg, time) {
+         return new Promise(function(resolve, reject){
+             setTimeout(resolve, time, msg);
+         })
+     }
+     
+     var p1 = p('\np1', 500);
+     var p2 = p('\nq1', 100);
+
+     Promise.race([p1, p2]).then(r => {
+         console.log(r);
+     })
+     #+END_SRC
+
+     #+RESULTS:
+     : undefined
+     : q1
+
+*** Promise is always async
+     #+BEGIN_SRC js :results output
+     var p = function() {
+         return new Promise(function(resolve, reject){
+             resolve('\npromise end')
+         })
+     }
+     var p1 = new p();
+     p1.then(res => {
+         console.log(res);
+     })
+     console.log('out')
+     #+END_SRC
+
+     #+RESULTS:
+     : out
+     : 
+     : promise end
+
+*** Promise then and catch
+     #+BEGIN_SRC js :results output
+     var p = function(msg, throwErr) {
+         return new Promise(function(resolve, reject){
+             if (throwErr) {
+                 throw 'promise throw error: ' + msg; 
+             } else {
+                 resolve('promise resolve: ' + msg);
+             }
+         })
+     }
+
+     p('p1').then(res => console.log(res))
+       .catch(err => console.log(err))
+
+     p('p2', 'err').then(res => console.log(res))
+       .catch(err => console.log(err))
+
+     p('p3').then(res => console.log(res),
+                  err => console.log(err));
+
+     p('p4').then(res => console.log(res))
+         .then(null, err => console.log(err))
+
+     p('p4', 'err').then(res => console.log(res), null)
+         .then(null,
+               err => console.log(err))
+
+     #+END_SRC
+
+     #+RESULTS:
+     : undefinedpromise resolve: p1
+     : promise resolve: p3
+     : promise resolve: p4
+     : promise throw error: p2
+     : promise throw error: p4
+
+*** Promise 流程控制
+    #+BEGIN_SRC js :results output
+    var p = function(msg, throwErr) {
+         return new Promise(function(resolve, reject){
+             if (throwErr) {
+                 throw 'promise throw error: ' + msg; 
+             } else {
+                 resolve('promise resolve: ' + msg);
+             }
+         })
+     }
+     Promise.resolve().then(res => {
+         console.log('1');
+     }).then(res => {
+         console.log('2');
+         // throw 'error1';
+     }).then(res => {
+         console.log('3')
+     }).catch(res => {
+         console.log('err catch 1');
+         // throw 'error 3';
+     }).then(res => {
+         console.log('4');
+         throw 'error 3';
+     }).catch(res => {
+         console.log('err catch 2')
+     })
+    #+END_SRC
+
+    #+RESULTS:
+    : undefined1
+    : 2
+    : 3
+    : 4
+    : err catch 2
+
+*** 注意事项
+    - /* Promise中使用catch，在IE8及以下版本会出现 identifier not found 语法错误。*/
+      catch 是ECMAScript的 保留字 (Reserved Word)有关。
+      在ECMAScript 3中保留字是不能作为对象的属性名使用的。
+      而IE8及以下版本都是基于ECMAScript 3实现的
+      因此不能将 catch 作为属性来使用
+      也就不能编写类似 promise.catch() 的代码
+      =IE8 ... 就当他不存在吧=
+    - 容易写出的错误代码
+      1. 
+         + 错误
+           #+BEGIN_SRC js :results output
+           function getPromise() {
+               var promise = Promise.resolve();
+               promise.then(function() {
+                   return newVar;
+               });
+               return promise;
+           }
+           #+END_SRC
+         
+         + 正确
+           #+BEGIN_SRC js :results output
+           function getPromise() {
+               var promise = Promise.resolve();
+               return promise.then(function() {
+                   return newVar;
+               });
+           }
+           #+END_SRC
+      2. 
+         + 错误
+           #+BEGIN_SRC js :results output
+           var p = new Promise(function (resolve) {
+               resolve(100);
+           });
+           p.then(function (value) {
+               return value * 2;
+           });
+           p.then(function (value) {
+               return value * 2;
+           });
+           p.then(function (value) {
+               console.log("\n1: " + value);
+           })
+
+           console.log('--- end ---');
+           return ''
+
+           #+END_SRC
+
+           #+RESULTS:
+           : --- end ---
+           : 
+           : 1: 100
+
+         
+
+         + 正确
+           #+BEGIN_SRC js :results output
+           var p = new Promise(function (resolve) {
+               resolve(100);
+           });
+           p.then(function (value) {
+               return value * 2;
+           }).then(function (value) {
+               return value * 2;
+           }).then(function (value) {
+               console.log("\n2: " + value);
+           });
+
+           console.log('--- end ---');
+           return ''
+           #+END_SRC
+
+           #+RESULTS:
+           : --- end ---
+           : ''
+           : 2: 400
+
+** Generator
+   [[https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*][MDN-Link: Generator Function]]
+   1. Generator是一种可以从中退出并在之后重新进入的函数。
+      Generator的环境（绑定的变量）会在每次执行后被保存，下次进入时可继续使用。
+      
+   2. 调用一个Generator函数并不马上执行它的主体，
+      而是返回一个这个Generator函数的迭代器（iterator）对象
+      当这个迭代器的next()方法被调用时，
+      Generator函数的主体会被执行直至第一个yield表达式，
+      该表达式定义了迭代器返回的值，或者，被 yield*委派至另一个Generator函数。
+      next()方法返回一个对象，该对象有一个value属性，表示产出的值，和一个done属性，表示Generator是否已经产出了它最后的值。
+*** simple Generator
+    #+BEGIN_SRC js :results output
+    function *gMaker() {
+        var index = 0;
+        while (index < 3) {
+            yield index++;
+        }
+        return index;
+    }
+    var gen = gMaker();
+    console.log(gen.next());
+    console.log(gen.next());
+    console.log(gen.next());
+    console.log(gen.next());
+    console.log(gen.next());
+    #+END_SRC
+
+    #+RESULTS:
+    : { value: 0, done: false }
+    : hahaha
+    : { value: 1, done: false }
+    : { value: 2, done: false }
+    : { value: 3, done: true }
+    : { value: undefined, done: true }
+*** Generator obj throw error
+    #+BEGIN_SRC js :results output
+    function *gMaker() {
+       var index = 0;
+       while (index < 2) {
+           try {
+               yield index++;
+           } catch (e) {
+               console.log('generator: ', e)
+           }
+       }
+    } 
+    var gen = gMaker();
+    console.log(gen.next());
+    console.log(gen.next());
+    // console.log(gen.next());
+    gen.throw(new Error('manual throw error'));
+    #+END_SRC
+
+    #+RESULTS:
+
+*** Generator yield *
+    #+BEGIN_SRC js :results output
+    function* anotherGenerator(i) {
+      yield i + 1;
+      yield i + 2;
+      yield i + 3;
+    }
+    
+    function* generator(i){
+      yield i;
+      yield* anotherGenerator(i);
+      yield i + 10;
+    }
+    
+    var gen = generator(10);
+    
+    console.log(gen.next());
+
+    console.log(gen.next());
+    console.log(gen.next());
+    console.log(gen.next());
+
+    console.log(gen.next());
+    #+END_SRC
+
+    #+RESULTS:
+    : { value: 10, done: false }
+    : { value: 11, done: false }
+    : { value: 12, done: false }
+    : { value: 13, done: false }
+    : { value: 20, done: false }
+
+** Let  Grenrator function auto run
+    [[https://github.com/tj/co][GitHub-Link: cojs]]
+    /使用co yied 对象必须为Promise 或者 Thunk函数/
+
+    #+BEGIN_SRC js :cmd "babel-node" :results output
+    var co = require('co');
+    co(function* () {
+      var result = yield Promise.resolve(true);
+      return result;
+    }).then(function (value) {
+      console.log(value);
+    }, function (err) {
+      console.error(err.stack);
+    });
+    #+END_SRC
+    
+    #+BEGIN_SRC js :cmd "babel-node" :results output
+      var co = require('co');
+      co(function *(){
+          var r = yield [
+              new Promise((r, j) =>
+                  {setTimeout(
+                      function(){
+                          console.log(1);
+                          r(1);
+                      }, 1000)}),
+              new Promise((r, j) =>
+                  {setTimeout(
+                      function(){
+                          console.log(2);
+                          r(2);
+                      }, 500)}),
+          ];
+          console.log(r)
+      })
+    #+END_SRC
+
+    #+RESULTS:
+    : 2
+    : 1 
+    : [ 1, 2 ]
+    
+    #+BEGIN_SRC js :cmd "babel-node" :results output
+      var co = require('co');
+      var gFunc = co.wrap(function *(){
+          var result = yield Promise.resolve('promise resolve');
+          return result;
+      })
+      gFunc().then(res => {
+          console.log(res);
+      })
+
+    #+END_SRC
+
+    #+RESULTS:
+    : promise resolve
+
+** async es7
+
+

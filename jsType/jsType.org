@@ -1,0 +1,390 @@
+** JS类型
+*** Types
+    - Types
+      + Boolean
+      + null
+      + undefined (top-level property whose value is undefined)
+      + Number
+      + String
+      + Symbol (ES2015 -- A data type whose instances are /unique/ and /immutable/)
+    - Object
+    
+***  CheckType
+    [[http://tobyho.com/2011/01/28/checking-types-in-javascript/][Blog]]
+    + typeof
+      /*  The typeof operator returns a string indicating the type of the unevaluated operand. */
+
+    #+BEGIN_SRC js :cmd "babel-node" :results output
+
+      function Log(str) {
+          var r;
+          try {
+              r = eval(str);
+          } catch(e) {
+              r = e.toString();
+          }
+          str = (str + ' '.repeat(50)).substr(0, 50)
+          console.log(str, r)
+      }
+
+      Log('typeof 3')
+      Log('typeof "abc"')
+      Log('typeof {}')
+      Log('typeof true')
+      Log('typeof undefined')
+      Log('typeof function(){}')
+
+      Log('typeof []')
+      Log('typeof null')
+
+    #+END_SRC
+
+    #+RESULTS:
+    : typeof 3                                           number
+    : typeof "abc"                                       string
+    : typeof {}                                          object
+    : typeof true                                        boolean
+    : typeof undefined                                   undefined
+    : typeof function(){}                                function
+    : typeof []                                          object
+    : typeof null                                        object
+     
+    + instanceof
+      /*  The instanceof operator tests whether an object has in
+      its prototype chain the prototype property of a constructor. */
+    #+BEGIN_SRC js :cmd "babel-node" :results output
+      function Log(str) {
+          var r;
+          try {
+              r = eval(str);
+          } catch(e) {
+              r = e.toString();
+          }
+          str = (str + ' '.repeat(50)).substr(0, 50)
+          console.log(str, r)
+      }
+
+      function Animal() {}
+      var a = new Animal()
+      Log('a instanceof Animal')
+
+      Log('a.constructor === Animal')
+
+      function Cat(){}
+      Log('Cat.prototype = new Animal')
+      Log('Cat.prototype.constructor = Cat')
+
+      var felix = new Cat
+      Log('felix instanceof Cat')
+      Log('felix instanceof Animal')
+      Log('felix.constructor === Cat')
+      Log('felix.constructor === Animal')
+
+      Log('felix = null')
+      Log('felix instanceof Animal')
+      Log('felix.constructor === Animal')
+
+      Log('[1, 2, 3] instanceof Array')
+      Log('/abc/ instanceof RegExp')
+      Log('({}) instanceof Object')
+      Log('(function(){}) instanceof Function')
+
+      Log('3 instanceof Number')
+      Log('true instanceof Boolean')
+      Log('"abc" instanceof String')
+
+      Log('null instanceof Boolean')
+      Log('undefined instanceof Array')
+
+      Log('(3).constructor === Number')
+      Log('true.constructor === Boolean')
+      Log('"abc".constructor === String')
+
+
+      // var iframe = document.createElement('iframe')
+      // document.body.appendChild(iframe)
+      // var iWindow = iframe.contentWindow // get a reference to the window object of the iframe
+      // iWindow.document.write('<script>var arr = [1, 2, 3]</script>') // create an array var in iframe's window
+      // iWindow.arr // [1, 2, 3]
+      // iWindow.arr instanceof Array // false
+      // Array === iWindow.Array // false
+      // iWindow.arr instanceof iWindow.Array // true
+
+    #+END_SRC
+
+    #+RESULTS:
+    #+begin_example
+    a instanceof Animal                                true
+    a.constructor === Animal                           true
+    Cat.prototype = new Animal                         Animal {}
+    Cat.prototype.constructor = Cat                    function Cat() {}
+    var felix = new Cat                                undefined
+    felix instanceof Cat                               ReferenceError: felix is not defined
+    felix instanceof Animal                            ReferenceError: felix is not defined
+    felix.constructor === Cat                          ReferenceError: felix is not defined
+    felix.constructor === Animal                       ReferenceError: felix is not defined
+    felix = null                                       null
+    felix instanceof Animal                            false
+    felix.constructor === Animal                       TypeError: Cannot read property 'constructor' of null
+    [1, 2, 3] instanceof Array                         true
+    /abc/ instanceof RegExp                            true
+    ({}) instanceof Object                             true
+    (function(){}) instanceof Function                 true
+    3 instanceof Number                                false
+    true instanceof Boolean                            false
+    "abc" instanceof String                            false
+    null instanceof Boolean                            false
+    undefined instanceof Array                         false
+    (3).constructor === Number                         true
+    true.constructor === Boolean                       true
+    "abc".constructor === String                       true
+#+end_example
+      
+    + Object.prototype.toString
+      /*   Every object has a toString() method that is automatically called
+        when the object is to be represented as a text value or
+        when an object is referred to in a manner in which a string is expected.
+           By default, the toString() method is inherited by every object descended from Object.
+           If this method is not overridden in a custom object, toString() returns "[object type]",
+        where type is the object type. */
+    #+BEGIN_SRC js :cmd "babel-node" :results output
+    function Log(str) {
+        var r;
+        try {
+            r = eval(str);
+        } catch(e) {
+            r = e.toString();
+        }
+        str = (str + ' '.repeat(50)).substr(0, 50)
+        console.log(str, r)
+    }
+
+    function Animal(){};
+
+    Log('Object.prototype.toString.call(3)')
+    Log('Object.prototype.toString.call([1, 2, 3])')
+    Log('Object.prototype.toString.call({})')
+    Log('Object.prototype.toString.call(new Animal)')
+
+    // Log('Object.prototype.toString.call(iWindow.arr) === "[object Array]"')  true
+    
+    // IE ....
+    // var pWindow = open("")
+    // pWindow.document.write('<script>var arr = [1, 2, 3]</script>')
+    // Object.prototype.toString.call(pWindow.arr) // you get "[object Object]" in IE; "[object Array]"
+
+    #+END_SRC
+
+    #+RESULTS:
+    : Object.prototype.toString.call(3)                  [object Number]
+    : Object.prototype.toString.call([1, 2, 3])          [object Array]
+    : Object.prototype.toString.call({})                 [object Object]
+    : Object.prototype.toString.call(new Animal)         [object Object]
+   
+    + Function.prototype.toString
+    /* The toString() method returns a string representing the source code of the function. */
+    #+BEGIN_SRC js :cmd "babel-node" :result output
+    function Log(str) {
+        var r;
+        try {
+            r = eval(str);
+        } catch(e) {
+            r = e.toString();
+        }
+        str = (str + ' '.repeat(50)).substr(0, 50)
+        console.log(str, r)
+    }
+    Log('Function.prototype.toString.call((3).constructor)')
+    function type(obj){
+      var text = Function.prototype.toString.call(obj.constructor)
+      return text.match(/function (.*)\(/)[1]
+    }
+    // has some error in IE like instanceof
+    Log('type("abc")')
+    #+END_SRC
+
+    #+RESULTS:
+    : Function.prototype.toString.call((3).constructor)  function Number() { [native code] }
+    : type("abc")                                        String
+    : undefined
+
+    + use Like (ArrayLike...)
+
+
+
+
+
+*** Lodash
+    + baseFunc
+      #+BEGIN_SRC js
+        var Array = context.Array,
+            Date = context.Date,
+            Error = context.Error,
+            Function = context.Function,
+            Math = context.Math,
+            Object = context.Object,
+            RegExp = context.RegExp,
+            String = context.String,
+            TypeError = context.TypeError;
+
+        // 类型表示
+        var argsTag = '[object Arguments]',
+            arrayTag = '[object Array]',
+            asyncTag = '[object AsyncFunction]',
+            boolTag = '[object Boolean]',
+            dateTag = '[object Date]',
+            domExcTag = '[object DOMException]',
+            errorTag = '[object Error]',
+            funcTag = '[object Function]',
+            genTag = '[object GeneratorFunction]',
+            mapTag = '[object Map]',
+            numberTag = '[object Number]',
+            nullTag = '[object Null]',
+            objectTag = '[object Object]',
+            promiseTag = '[object Promise]',
+            proxyTag = '[object Proxy]',
+            regexpTag = '[object RegExp]',
+            setTag = '[object Set]',
+            stringTag = '[object String]',
+            symbolTag = '[object Symbol]',
+            undefinedTag = '[object Undefined]',
+            weakMapTag = '[object WeakMap]',
+            weakSetTag = '[object WeakSet]';
+
+
+        /** Built-in value references. */
+        var Buffer = moduleExports ? context.Buffer : undefined,
+            Symbol = context.Symbol,
+            Uint8Array = context.Uint8Array,
+            allocUnsafe = Buffer ? Buffer.allocUnsafe : undefined,
+            getPrototype = overArg(Object.getPrototypeOf, Object),
+            objectCreate = Object.create,
+            propertyIsEnumerable = objectProto.propertyIsEnumerable,
+            splice = arrayProto.splice,
+            spreadableSymbol = Symbol ? Symbol.isConcatSpreadable : undefined,
+            symIterator = Symbol ? Symbol.iterator : undefined,
+            symToStringTag = Symbol ? Symbol.toStringTag : undefined;
+
+        var reIsBinary = /^0b[01]+$/i; // 二进制
+        var reIsOctal = /^0o[0-7]+$/i; // 八进制
+        var reIsBadHex = /^[-+]0x[0-9a-f]+$/i; // bad 十六进制
+
+        var reTrim = /^\s+|\s+$/g,
+            reTrimStart = /^\s+/,
+            reTrimEnd = /\s+$/;
+
+        var INFINITY = 1 / 0,
+            MAX_SAFE_INTEGER = 9007199254740991,
+            MAX_INTEGER = 1.7976931348623157e+308,
+            NAN = 0 / 0;
+
+        // important !!
+        function getRawTag(value) {
+            var isOwn = Object.prototype.hasOwnProperty.call(value, symToStringTag),
+                tag = value[symToStringTag];
+
+            try {
+                value[symToStringTag] = undefined;
+                var unmasked = true;
+            } catch (e) {}
+
+            var result = Object.prototype.toString.call(value);
+            if (unmasked) {
+                if (isOwn) {
+                    value[symToStringTag] = tag;
+                } else {
+                    delete value[symToStringTag];
+                }
+            }
+            return result;
+        }
+
+        // important !!
+        function baseGetTag(value) {
+            if (value == null) {
+                return value === undefined ? undefinedTag : nullTag;
+            }
+            value = Object(value);
+            return (symToStringTag && symToStringTag in value)
+                ? getRawTag(value)
+                : Object.prototype.toString.call(value);
+        }
+
+        /*--------------- 华丽的分隔符 ---------------------*/
+
+        function isObjectLike(value) {
+            return value != null && typeof value == 'object';
+        }
+
+        // 类型判断函数
+
+        function isNumber(value) {
+            return typeof value == 'number' ||
+                (isObjectLike(value) && baseGetTag(value) == numberTag);
+        }
+
+        function isSymbol(value) {
+            return typeof value == 'symbol' ||
+                (isObjectLike(value) && baseGetTag(value) == symbolTag);
+        }
+
+        function isObject(value) {
+            var type = typeof value;
+            return value != null && (type == 'object' || type == 'function');
+        }
+
+
+
+
+        function toNumber(value) {
+            if (typeof value == 'number') {
+                return value;
+            }
+            if (isSymbol(value)) {
+                return NAN;
+            }
+            if (isObject(value)) {
+                var other = typeof value.valueOf == 'function' ? value.valueOf() : value;
+                value = isObject(other) ? (other + '') : other;
+            }
+            if (typeof value != 'string') {
+                return value === 0 ? value : +value;
+            }
+            value = value.replace(reTrim, '');
+            var isBinary = reIsBinary.test(value);
+
+            return (isBinary || reIsOctal.test(value))
+                ? parseInt(value.slice(2), isBinary ? 2 : 8)
+            : (reIsBadHex.test(value) ? NAN : +value);
+        }
+
+        function toFinite(value) {
+            if (!value) {
+                return value === 0 ? value : 0;
+            }
+            value = toNumber(value);
+            if (value === INFINITY || value === -INFINITY) {
+                var sign = (value < 0 ? -1 : 1);
+                return sign * MAX_INTEGER;
+            }
+            return value === value ? value : 0;
+        }
+
+        function toInteger(value) {
+            var result = toFinite(value),
+                remainder = result % 1;
+            return result === result ? (remainder ? result - remainder : result) : 0;
+        }
+
+        function isInteger(value) {
+            return typeof value == 'number' && value == toInteger(value);
+        }
+
+
+
+
+
+      #+END_SRC
+
+        #+RESULTS:
+
