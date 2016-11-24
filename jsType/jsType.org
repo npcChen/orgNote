@@ -10,7 +10,7 @@
     - Object
     
 ***  CheckType
-    [[http://tobyho.com/2011/01/28/checking-types-in-javascript/][Blog]]
+    [[http://tobyho.com/2011/01/28/checking-types-in-javascript/][原文Blog]]
     + typeof
       /*  The typeof operator returns a string indicating the type of the unevaluated operand. */
 
