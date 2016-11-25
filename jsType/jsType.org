@@ -48,6 +48,10 @@
     : typeof function(){}                                function
     : typeof []                                          object
     : typeof null                                        object
+
+    
+    /*typeof 对Dates, RegExp, 自定义Obj， DOM Elements。。。会返回object*/
+    /*适合用于区分primitive values的类型， Array和null都返回object*/
      
     + instanceof
       /*  The instanceof operator tests whether an object has in
@@ -118,11 +122,10 @@
     a.constructor === Animal                           true
     Cat.prototype = new Animal                         Animal {}
     Cat.prototype.constructor = Cat                    function Cat() {}
-    var felix = new Cat                                undefined
-    felix instanceof Cat                               ReferenceError: felix is not defined
-    felix instanceof Animal                            ReferenceError: felix is not defined
-    felix.constructor === Cat                          ReferenceError: felix is not defined
-    felix.constructor === Animal                       ReferenceError: felix is not defined
+    felix instanceof Cat                               true
+    felix instanceof Animal                            true
+    felix.constructor === Cat                          true
+    felix.constructor === Animal                       false
     felix = null                                       null
     felix instanceof Animal                            false
     felix.constructor === Animal                       TypeError: Cannot read property 'constructor' of null
@@ -139,6 +142,10 @@
     true.constructor === Boolean                       true
     "abc".constructor === String                       true
 #+end_example
+    /*instanceof 无法对primitive types区分（包括string, number, null, undefined, boolean, symbol）*/
+    /*对于undefined 和 null 为顶级类型， 不是任何一个类型的实例*/
+    /*(3).constructor 可用是因为 当对primitive value取property时, 将会自动使用Object wrap。 exc: wrapper = new Number(3)*/
+    /*所以 new Number(3) instanceof Number 可以使用*/
       
     + Object.prototype.toString
       /*   Every object has a toString() method that is automatically called
@@ -208,6 +215,9 @@
     : type("abc")                                        String
     : undefined
 
+    /*对任意的native类型都有效（前提是 对象toString没有被修改）*/
+    /*对任意的自定义类型都会返回[type type]*/
+
     + use Like (ArrayLike...)
 
 
@@ -215,7 +225,6 @@
 
 
 *** Lodash
-    + baseFunc
       #+BEGIN_SRC js
         var Array = context.Array,
             Date = context.Date,
@@ -333,6 +342,28 @@
             return value != null && (type == 'object' || type == 'function');
         }
 
+        function isString(value) {
+            return typeof value == 'string' ||
+                (!Array.isArray(value) && isObjectLike(value) && baseGetTag(value) == stringTag);
+        }
+
+        function isBoolean(value) {
+            return value === true || value === false ||
+                (isObjectLike(value) && baseGetTag(value) == boolTag);
+        }
+
+        function isSymbol(value) {
+            return typeof value == 'symbol' ||
+                (isObjectLike(value) && baseGetTag(value) == symbolTag);
+        }
+
+        function isUndefined(value) {
+            return value === undefined;
+        }
+
+        function isUndefined(value) {
+            return value === undefined;
+        }
 
 
 
@@ -380,11 +411,5 @@
             return typeof value == 'number' && value == toInteger(value);
         }
 
-
-
-
-
       #+END_SRC
-
-        #+RESULTS:
 
