@@ -66,34 +66,20 @@
      #+BEGIN_SRC js :cmd "node" :results output
        var a = 1;
        var self = this;
-       function haha(){
-       var that = this;
-       var a = 100;
        var p = function(msg) {
            return new Promise(function(resolve, reject){
                setTimeout(resolve(msg), 500);
            })
        }
 
-       var pInstance = p('\nsimple promise');
+       var pInstance = p('simple promise');
        pInstance.then(res => {
-           var a = 10;
-           console.log(this === that);
-           console.log(this.a);
            console.log(res);
        })
-       }
-
-       var n = {a: 10000};
-
-
 
      #+END_SRC
 
      #+RESULTS:
-     : true
-     : undefined
-     : 
      : simple promise
 
 *** Promise传值
