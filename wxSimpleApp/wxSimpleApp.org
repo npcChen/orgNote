@@ -1,0 +1,282 @@
+* 微信小程序
+** 为什么使用微信小程序
+   + 在微信传播（入口待定）
+   + 拥有类似原生App的体验
+
+** 原生化 / 类原生化的前端框架
+*** [[https://github.com/electron/electron][Electron]] / [[https://github.com/nwjs/nw.js][Nw.js]] (桌面应用)
+*** [[https://github.com/facebook/react-native][ReactiveNative]] / [[https://github.com/alibaba/weex][Weex]] (移动端应用)
+*** [[https://developer.chrome.com/apps/about_apps][ChromeApp]]
+
+** 小程序概述
+*** 项目结构
+      .
+      ├── app.js
+      ├── app.json
+      ├── app.wxss
+      ├── components
+      │   ├── commentItem
+      │   ├── contentWithFace.wxml
+      │   └── topicItem
+      ├── exc.js
+      ├── images
+      │   ├── home.png
+      │   ├── homeCur.png
+      │   ├── me.png
+      │   ├── meCur.png
+      │   ├── pub.png
+      │   └── pubCur.png
+      ├── pages
+      │   ├── forumIndex
+      │   ├── pub
+      │   ├── topicIndex
+      │   └── userCenter
+      ├── settings.js
+      ├── utils
+      │   ├── kclubSdk.js
+      │   ├── navigate.js
+      │   └── util.js
+      └── vendor
+          ├── es6-promise.min.js
+          ├── object-assign.min.js
+          └── promisefy.js
+
+*** 配置文件app.json/入口文件app.js
+      #+BEGIN_SRC js
+      {
+        "pages": [
+          "pages/index/index",
+          "pages/logs/index"
+        ],
+        "window": {
+            "navigationBarBackgroundColor": "#ffffff",
+            "navigationBarTextStyle": "black",
+            "navigationBarTitleText": "微信接口功能演示",
+            "backgroundColor": "#eeeeee",
+            "backgroundTextStyle": "light" 
+        },
+        "tabBar": {
+            "color": "#fafafa",
+            "selectedColor": "#fafafa",
+            "backgroundColor": "#ffffff",
+            "borderStyle": "black/white",
+            "list": [{
+                "pagePath": "pages/index/index",
+                "text": "首页",
+                "iconPath": "",
+                "selectedIconPath": ""
+            }, {
+                "pagePath": "pages/logs/logs",
+                "text": "日志"
+            }]
+        },
+        "networkTimeout": {
+          "request": 10000,
+          "downloadFile": 10000
+        },
+        "debug": true
+      }
+      #+END_SRC
+
+      #+BEGIN_SRC js
+      App({
+        onLaunch: function() { 
+          // Do something initial when launch.
+        },
+        onShow: function() {
+            // Do something when show.
+        },
+        onHide: function() {
+            // Do something when hide.
+        },
+        globalData: 'I am global data'
+      })
+      #+END_SRC
+
+      /通过getApp()获取全局App对象/
+
+*** Page方法
+    #+BEGIN_SRC js
+    Page({
+      data: {
+        text: "This is page data."
+      },
+      onLoad: function(options) {
+        // Do some initialize when page load.
+      },
+      onReady: function() {
+        // Do something when page ready.
+      },
+      onShow: function() {
+        // Do something when page show.
+      },
+      onHide: function() {
+        // Do something when page hide.
+      },
+      onUnload: function() {
+        // Do something when page close.
+      },
+      onPullDownRefresh: function() {
+        // Do something when pull down.
+      },
+      onReachBottom: function() {
+        // Do something when page reach bottom.
+      },
+      // Event handler.
+      viewTap: function() {
+        this.setData({
+          text: 'Set some data for updating view.'
+        })
+      },
+      customData: {
+        hi: 'MINA'
+      }
+    })
+    #+END_SRC
+
+*** 模板
+    | name                  | 操作                                                                |
+    | {{ msg }}             | 获取Page.data中的值, 可插入简单的js逻辑                             |
+    | wx:if/wx:elif/wx:else | 逻辑判断                                                            |
+    | hidden                | 是否展示 类似于v-show, 负责是否显示不会重新渲染                     |
+    | wx:for                | 遍历 只支持array                                                    |
+    | wx:for-item           | 遍历的每个item的变量名， 默认为item                                 |
+    | wx:for-index          | 遍历时每个item的下标，默认为index                                   |
+    | wx:key                | 设置遍历的key， 当重新渲染时会保持状态，不会重新创建， 进行重新排序 |
+    | <template></template> | 申明模板                                                            |
+
+**** 模板的使用
+***** 定义
+    #+BEGIN_SRC html
+    <template name="msgItem">
+      <view>
+        <text> {{index}}: {{msg}} </text>
+        <text> Time: {{time}} </text>
+      </view>
+    </template>
+    #+END_SRC
+
+***** 使用
+    #+BEGIN_SRC html
+    <template is="msgItem" data="{{...item}}"/>
+    #+END_SRC
+
+***** 引入模板
+      #+BEGIN_SRC html
+      <import src="item.wxml"/>
+      <include src="header.wxml"/> // 相当于copy
+      #+END_SRC
+      /不会递归引入，B中引入C， 但A引入B之后无法使用C/
+
+**** 模板中时间绑定
+    | touchstart	 | 手指触摸动作开始                       |
+    | touchmove	  | 手指触摸后移动                         |
+    | touchcancel  | 	手指触摸动作被打断，如来电提醒，弹窗 |
+    | touchend	   | 手指触摸动作结束                       |
+    | tap	        | 手指触摸后马上离开                     |
+    | longtap	    | 手指触摸后，超过350ms再离开            |
+
+    其他组件自定义事件如无特殊申明都是非冒泡事件，如
+      <form/>的submit事件，
+      <input/>的input事件，
+      <scroll-view/>的scroll事件
+
+***** 绑定方式
+      bind + event (bindtap)="funcName"    冒泡事件
+      catch + event (catchtap)="funcName"  阻止冒泡
+      /funcName为Page中对应的方法名字/
+      /*暂时不可以在绑定时给响应函数传参数*/
+
+      /*可以通过给绑定事件的DOM，添加data-id="...",
+      在响应函数event对象中通过event.currentTarget.dataset...获取*/
+
+      /*event.target.dataset。。。获取冒泡上来的事件的触发者的data*/
+
+** CSS
+**** 自带rem -- rpx
+     1rem = windowWidth / 20
+     1rpx = windowWidth / 750
+
+**** 引入样式
+     默认使用Pages目录下每个page同名的样式文件
+     若page含有多个样式文件, 在同名文件中通过@import "a.css"方式引入
+
+**** 选择器
+    | 选择器	           | 样例	           | 样例描述                                       |
+    | .class	           | .intro	         | 选择所有拥有 class="intro" 的组件              |
+    | #id	              | #firstname	     | 选择拥有 id="firstname" 的组件                 |
+    | element	          | view	           | 选择所有 view 组件                             |
+    | element, element	 | view, checkbox	 | 选择所有文档的 view 组件和所有的 checkbox 组件 |
+    | ::after	          | view::after	    | 在 view 组件后边插入内容                       |
+    | ::before	         | view::before	   | 在 view 组件前边插入内容                       |
+
+    不支持级联选择
+**** app.wxss中的样式为全局样式
+
+** 组件
+   | name        | 作用                 |
+   | view        | 视图容器             |
+   | scroll-view | 滚动窗口             |
+   | swiper      | 轮播                 |
+   | icon        | icon只能只用weUI中的 |
+   | text        | 文本 支持\转义       |
+   | process     | 进度条               |
+   |             |                      |
+   | 表单组件    |                      |
+   | button      |                      |
+   | checkbox    |                      |
+   | form        |                      |
+   | input       |                      |
+   | label       |                      |
+   | picker      |                      |
+   | radio       |                      |
+   | slider      |                      |
+   | switch      |                      |
+   | textarea    |                      |
+   |             |                      |
+   | 操作反馈    |                      |
+   | audio       |                      |
+   | image       |                      |
+   | video       |                      |
+   |             |                      |
+   | 地图        |                      |
+   | map         |                      |
+   |             |                      |
+   | 画布        |                      |
+   | canvas      |                      |
+
+**** 一些组件注意点
+      + image可以设置裁剪模式， 和拉伸模式， 但不可以上图片自适应缩放，
+        要达到效果可以通过bindload方法进行js绑定，动态计算宽高
+      + 资源不可以 以// 开头， 不识别
+      + scroll-view中不可使用video， 官方bug
+
+** JS运行环境
+   | 设备     | 环境       |
+   | IOS      | webkit内核 |
+   | Android  | QQ X5 内核 |
+   | 开发工具 | Chrome     |
+
+   所以要适配所有的环境要保证es5语法， es6的功能如Promise,Object.assign需要引入polyfill
+   无法使用npm的node_modules所以需要使用的话将文件拷贝出至单独文件
+   官方自带babel，记得polyfill !!!!
+
+** 真机调试注意点
+   不少bug在真机上的log中无法正确反馈，没有断点调试
+   所有发function对象console.log出来为null，不要天真的认为真的是null
+** 关于授权登录
+   [[file:login.png]]
+
+** 转换过程
+
+  | DevTool   |                | Backend      |                  | Client    |
+  |           |                | (compiler)   |                  |           |
+  |           |                |              |                  |           |
+  | page wxml |                | wxml --> js  |                  | view      |
+  | page wxss | --> Upload --> | wxss --> js  | --> Download --> | AppServer |
+  | page js   |                | js   --> js  |                  | Navtive   |
+  | page json |                | json --> jon |                  |           |
+  |           |                |              |                  |           |
+   
+
+
