@@ -1,0 +1,210 @@
+* reduxSage 的使用
+** redux 流程图镇楼
+   #+attr_html: :width 600px
+      [[./redux.jpg]]
+** 为什么使用 reduxSaga
+   /在 redux 中，reducer 为纯函数/
+   /Actions are payloads of information that send data from your application to your store.
+   They are the only source of information for the store. You send them to the store using store.dispatch()./
+   /所以需要使用 middware 处理异步的操作/
+
+** 处理 Async Actions 的 Middware
+   - redux thunk
+      /Redux Thunk middleware allows you to write action creators that
+      return a function instead of an action. The thunk can be used to delay the dispatch of an action,
+      or to dispatch only if a certain condition is me.
+      The inner function receives the store methods *_dispatch_* and *_getState_* as parameters./
+      #+BEGIN_SRC js
+          function makeSandwichesForEverybody() {
+            return function (dispatch, getState) {
+                if (!getState().sandwiches.isShopOpen) {
+                    return Promise.resolve();
+                }
+
+                return dispatch(
+                    makeASandwichWithSecretSauce('My Grandma')
+                ).then(() =>
+                    Promise.all([
+                        dispatch(makeASandwichWithSecretSauce('Me')),
+                        dispatch(makeASandwichWithSecretSauce('My wife'))
+                    ])
+                ).then(() =>
+                    dispatch(makeASandwichWithSecretSauce('Our kids'))
+                ).then(() =>
+                    dispatch(getState().myMoney > 42 ?
+                        withdrawMoney(42) :
+                        apologize('Me', 'The Sandwich Shop')
+                    )
+                );
+            };
+        }
+      #+END_SRC
+   - redux promise
+   /The default export is a middleware function.
+    1. If it receives a promise. 
+        1.1 It will dispatch the resolved value of the promise.
+        1.2 It will not dispatch anything if the promise rejects.
+    2. If it receives an Flux Standard Action whose payload is a promise, it will either
+        2.1 dispatch a copy of the action with the resolved value of the promise, and set status to success.
+        2.2 dispatch a copy of the action with the rejected value of the promise, and set status to error./
+   - redux saga
+
+** redux sage
+***  redux sage 常用的 effect
+   - delay
+   - call
+   - alias
+   - cps
+   - put
+   - take
+   - fork
+   - cancel
+   - takeEvery
+   - takeLatest
+
+**** delay
+     /a utility function that returns a Promise that will resolve after a specified number of milliseconds/
+     #+BEGIN_SRC js
+     export function* incrementAsync() {
+        yield delay(1000)
+        yield put({ type: 'INCREMENT' })
+     }
+     #+END_SRC
+
+**** call
+    /调用 函数 call(fu, fuArgs)/
+    #+BEGIN_SRC js
+    function* fetchUser(action) {
+        try {
+            const user = yield call(Api.fetchUser, action.payload.userId);
+            yield put({type: "USER_FETCH_SUCCEEDED", user: user});
+        } catch (e) {
+            yield put({type: "USER_FETCH_FAILED", message: e.message});
+        }
+    }
+    #+END_SRC
+    *call not executing the fetch(promise) call immediately,
+    instead, call creates a description of the effect.
+    The redux-saga middleware takes care of executing the function call
+    and resuming the generator with the resolved response.*
+
+    #+BEGIN_SRC js
+    /* 带上下文的 Object function */
+    yield call([obj, obj.method], arg1, arg2, ...) // as if we did obj.method(arg1, arg2 ...)
+    #+END_SRC
+
+**** apply
+    /apply is an alias for the method invocation form/
+    #+BEGIN_SRC js
+    yield apply(obj, obj.method, [arg1, arg2, ...])
+    #+END_SRC
+
+**** cps
+    /call 和 apply 适用于 Promise 对象/
+    /cps 适用于 Node style functions (e.g. fn(...args, callback)
+    callback 形式为 (error, result) => ()/
+    #+BEGIN_SRC js
+    const content = yield cps(readFile, '/path/to/file')
+    #+END_SRC
+
+**** put
+     /用于 dispatch actions/
+     #+BEGIN_SRC js
+     function* fetchProducts() {
+         const products = yield call(Api.fetch, '/products')
+         // create and yield a dispatch Effect
+         yield put({ type: 'PRODUCTS_RECEIVED', products })
+     }
+     #+END_SRC
+
+**** 综合上面 Effect 的正常使用 Demo
+     #+BEGIN_SRC js
+     function* fetchProducts() {
+         const { response, error } = yield call(fetchProductsApi)
+         if (response) {
+             yield put({ type: 'PRODUCTS_RECEIVED', products: response })
+         } else {
+             yield put({ type: 'PRODUCTS_REQUEST_FAILED', error })
+         }
+     }
+     #+END_SRC
+
+**** take
+     /It creates another command object that tells the middleware to wait for a specific action. /
+     / it'll suspend the Generator until a matching action is dispatched./
+     #+BEGIN_SRC js
+     // 日志
+     function* watchAndLog() {
+         while (true) {
+             const action = yield take('*')
+             const state = yield select()
+
+             console.log('action', action)
+             console.log('state after', state)
+         }
+     }
+     #+END_SRC
+     /注意点 while(true)的使用/
+
+**** fork
+     /When we fork a task, the task is started in the background and
+     the caller can continue its flow without waiting for the forked task to terminate./
+
+**** cancel
+     /used to cancel forked task/
+
+**** 登录/登出 使用 redux saga 的 Demo
+     #+BEGIN_SRC js
+       function* authorize(user, password) {
+           try {
+               const token = yield call(Api.authorize, user, password)
+               yield put({type: 'LOGIN_SUCCESS', token})
+               yield call(Api.storeItem, {token})
+           } catch(error) {
+               yield put({type: 'LOGIN_ERROR', error})
+           }
+       }
+
+       function* loginFlow() {
+           while (true) {
+               const {user, password} = yield take('LOGIN_REQUEST')
+               const task = yield fork(authorize, user, password)
+               yield take(['LOGOUT', 'LOGIN_ERROR'])
+               if (action.type === 'LOGOUT')
+                   yield cancel(task)
+               yield call(Api.clearItem, 'token')
+           }
+       }
+     #+END_SRC
+
+**** takeEvery
+     #+BEGIN_SRC js
+       function* takeEvery(pattern, saga, ...args) {
+           const task = yield fork(function* () {
+               while (true) {
+                   const action = yield take(pattern)
+                   yield fork(saga, ...args.concat(action))
+               }
+           })
+           return task
+       }
+     #+END_SRC
+
+**** takeLatest
+     #+BEGIN_SRC js
+       function* takeLatest(pattern, saga, ...args) {
+           const task = yield fork(function* () {
+               let lastTask
+               while (true) {
+                   const action = yield take(pattern)
+                   if (lastTask)
+                       yield cancel(lastTask) // cancel is no-op if the task has already terminated
+
+                   lastTask = yield fork(saga, ...args.concat(action))
+               }
+           })
+           return task
+       }
+     #+END_SRC
+
+## 未完

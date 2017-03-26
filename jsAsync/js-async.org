@@ -1,4 +1,4 @@
-* Js异步
+* Js 异步
 ** 异步的几种方式
 *** 回调
     #+BEGIN_SRC js
@@ -31,7 +31,7 @@
 *** what is Promise
     [[https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise][MDN-Link: promise]]
     /* ECMAScript 2015: */
-    /所谓Promise，简单说就是一个容器，/
+    /所谓 Promise，简单说就是一个容器，/
     /里面保存着某个未来才会结束的事件（通常是一个异步操作）的结果/
 
     /* MDN */
@@ -50,11 +50,11 @@
         - rejected: meaning that the operation failed.
    
       
-    Promise 对象是一个返回值的代理，这个返回值在promise对象创建时未必已知。
+    Promise 对象是一个返回值的代理，这个返回值在 promise 对象创建时未必已知。
     它允许你为异步操作的成功返回值或失败信息指定处理方法。
     这使得异步方法可以像同步方法那样返回值：异步方法会返回一个包含了原返回值的 promise 对象来替代原返回值
     
-    Promise对象有以下几种状态:
+    Promise 对象有以下几种状态:
         - pending: 初始状态, 既不是 fulfilled 也不是 rejected.
         - fulfilled: 成功的操作.
         - rejected: 失败的操作.
@@ -82,7 +82,7 @@
      #+RESULTS:
      : simple promise
 
-*** Promise传值
+*** Promise 传值
      [[p][MDN-Link: promise-then]]
      #+BEGIN_SRC js :results output
      var p = function(msg, time) {
@@ -252,10 +252,10 @@
     : err catch 2
 
 *** 注意事项
-    - /* Promise中使用catch，在IE8及以下版本会出现 identifier not found 语法错误。*/
-      catch 是ECMAScript的 保留字 (Reserved Word)有关。
-      在ECMAScript 3中保留字是不能作为对象的属性名使用的。
-      而IE8及以下版本都是基于ECMAScript 3实现的
+    - /* Promise 中使用 catch，在 IE8 及以下版本会出现 identifier not found 语法错误。*/
+      catch 是 ECMAScript 的 保留字 (Reserved Word)有关。
+      在 ECMAScript 3 中保留字是不能作为对象的属性名使用的。
+      而 IE8 及以下版本都是基于 ECMAScript 3 实现的
       因此不能将 catch 作为属性来使用
       也就不能编写类似 promise.catch() 的代码
       =IE8 ... 就当他不存在吧=
@@ -333,15 +333,15 @@
 
 ** Generator
    [[https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*][MDN-Link: Generator Function]]
-   1. Generator是一种可以从中退出并在之后重新进入的函数。
-      Generator的环境（绑定的变量）会在每次执行后被保存，下次进入时可继续使用。
+   1. Generator 是一种可以从中退出并在之后重新进入的函数。
+      Generator 的环境（绑定的变量）会在每次执行后被保存，下次进入时可继续使用。
       
-   2. 调用一个Generator函数并不马上执行它的主体，
-      而是返回一个这个Generator函数的迭代器（iterator）对象
-      当这个迭代器的next()方法被调用时，
-      Generator函数的主体会被执行直至第一个yield表达式，
-      该表达式定义了迭代器返回的值，或者，被 yield*委派至另一个Generator函数。
-      next()方法返回一个对象，该对象有一个value属性，表示产出的值，和一个done属性，表示Generator是否已经产出了它最后的值。
+   2. 调用一个 Generator 函数并不马上执行它的主体，
+      而是返回一个这个 Generator 函数的迭代器（iterator）对象
+      当这个迭代器的 next()方法被调用时，
+      Generator 函数的主体会被执行直至第一个 yield 表达式，
+      该表达式定义了迭代器返回的值，或者，被 yield*委派至另一个 Generator 函数。
+      next()方法返回一个对象，该对象有一个 value 属性，表示产出的值，和一个 done 属性，表示 Generator 是否已经产出了它最后的值。
 *** simple Generator
     #+BEGIN_SRC js :results output
     function *gMaker() {
@@ -421,7 +421,7 @@
 
 ** Let  Grenrator function auto run
     [[https://github.com/tj/co][GitHub-Link: cojs]]
-    /使用co yied 对象必须为Promise 或者 Thunk函数/
+    /使用 co yied 对象必须为 Promise 或者 Thunk 函数/
 
     #+BEGIN_SRC js :cmd "babel-node" :results output
     var co = require('co');
