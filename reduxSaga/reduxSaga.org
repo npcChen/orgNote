@@ -4,16 +4,14 @@
       [[./redux.jpg]]
 ** 为什么使用 reduxSaga
    /在 redux 中，reducer 为纯函数/
-   /Actions are payloads of information that send data from your application to your store.
-   They are the only source of information for the store. You send them to the store using store.dispatch()./
+   /Actions are payloads of information that send data from your application to your store./
+   /They are the only source of information for the store. You send them to the store using store.dispatch()./
    /所以需要使用 middware 处理异步的操作/
 
 ** 处理 Async Actions 的 Middware
    - redux thunk
-      /Redux Thunk middleware allows you to write action creators that
-      return a function instead of an action. The thunk can be used to delay the dispatch of an action,
-      or to dispatch only if a certain condition is me.
-      The inner function receives the store methods *_dispatch_* and *_getState_* as parameters./
+      /Redux Thunk middleware allows you to write action creators that return a function instead of an action. The thunk can be used to delay the dispatch of an action, or to dispatch only if a certain condition is me. The inner function receives the store methods *_dispatch_* and *_getState_* as parameters./
+      reduxThunk 支持 Action 返回一个 function(不仅仅是原有的{type: XXX, payload: XXX})。返回的 function 会接收 dispatch 和 getState 参数， 在 function 内部进行异步操作。
       #+BEGIN_SRC js
           function makeSandwichesForEverybody() {
             return function (dispatch, getState) {
@@ -40,17 +38,47 @@
         }
       #+END_SRC
    - redux promise
-   /The default export is a middleware function.
-    1. If it receives a promise. 
-        1.1 It will dispatch the resolved value of the promise.
-        1.2 It will not dispatch anything if the promise rejects.
-    2. If it receives an Flux Standard Action whose payload is a promise, it will either
-        2.1 dispatch a copy of the action with the resolved value of the promise, and set status to success.
-        2.2 dispatch a copy of the action with the rejected value of the promise, and set status to error./
+    /The default export is a middleware function./
+     1. If it receives a promise. 
+         1.1 It will dispatch the resolved value of the promise.
+         1.2 It will not dispatch anything if the promise rejects.
+     2. If it receives an Flux Standard Action whose payload is a promise, it will either
+         2.1 dispatch a copy of the action with the resolved value of the promise, and set status to success.
+         2.2 dispatch a copy of the action with the rejected value of the promise, and set status to error.
+     reduxPromise 支持 Action 返回 Promise 对象和 Flux 标准的 Action，
+     若是 Promise 对象，则会 dispatch 成功执行后的结果， 若 promise 出错则不 dispatch 任何事件
+     若是 Flux 标准对象({type: XXX, payload: Promise 对象}), dispatch {type: XXX, payload: PromiseVal, error: true}，payload 为 Promise 结果, error 为 Promise 执行失败时添加的状态
+     #+BEGIN_SRC js
+       import { isFSA } from 'flux-standard-action';
+
+       function isPromise(val) {
+           return val && typeof val.then === 'function';
+       }
+
+       export default function promiseMiddleware({ dispatch }) {
+           return next => action => {
+               if (!isFSA(action)) {
+                   return isPromise(action)
+                       ? action.then(dispatch)
+                       : next(action);
+               }
+
+               return isPromise(action.payload)
+                   ? action.payload.then(
+                       result => dispatch({ ...action, payload: result }),
+                       error => {
+                           dispatch({ ...action, payload: error, error: true });
+                           return Promise.reject(error);
+                       }
+                   )
+               : next(action);
+           };
+       }
+     #+END_SRC
    - redux saga
 
 ** redux sage
-***  redux sage 常用的 effect
+***  redux sage 中的 effect
    - delay
    - call
    - alias
@@ -59,6 +87,7 @@
    - take
    - fork
    - cancel
+   - canceled
    - takeEvery
    - takeLatest
 
@@ -72,7 +101,7 @@
      #+END_SRC
 
 **** call
-    /调用 函数 call(fu, fuArgs)/
+    /调用 函数 call(fn, fnArgs)/
     #+BEGIN_SRC js
     function* fetchUser(action) {
         try {
@@ -83,10 +112,11 @@
         }
     }
     #+END_SRC
-    *call not executing the fetch(promise) call immediately,
-    instead, call creates a description of the effect.
-    The redux-saga middleware takes care of executing the function call
-    and resuming the generator with the resolved response.*
+    *call not executing the fetch(promise) call immediately,*
+    *instead, call creates a description of the effect.*
+    *The redux-saga middleware takes care of executing the function call*
+    *and resuming the generator with the resolved response.*
+    /call 等 effect 并不会立刻执行，而是创建一个 effect 的描述，交由 redux-sage-middware 去执行/
 
     #+BEGIN_SRC js
     /* 带上下文的 Object function */
@@ -153,29 +183,93 @@
 **** cancel
      /used to cancel forked task/
 
-**** 登录/登出 使用 redux saga 的 Demo
-     #+BEGIN_SRC js
-       function* authorize(user, password) {
-           try {
-               const token = yield call(Api.authorize, user, password)
-               yield put({type: 'LOGIN_SUCCESS', token})
-               yield call(Api.storeItem, {token})
-           } catch(error) {
-               yield put({type: 'LOGIN_ERROR', error})
-           }
-       }
+**** cancelled
+    /The cancelled task can handle any cancellation logic/
 
-       function* loginFlow() {
-           while (true) {
-               const {user, password} = yield take('LOGIN_REQUEST')
-               const task = yield fork(authorize, user, password)
-               yield take(['LOGOUT', 'LOGIN_ERROR'])
-               if (action.type === 'LOGOUT')
-                   yield cancel(task)
-               yield call(Api.clearItem, 'token')
+**** 登录/登出 使用 redux saga 的 Demo
+     - /需要考虑的问题 login, logout 均为异步操作/
+       1. 在 login 的时候调用 logout 会怎么样
+       2. login 与 logout 均有对应的 UI 展示效果，如何在出现 1 中情况下做出正确的 UI 反馈
+     - Codes:
+       + Demo 1
+         #+BEGIN_SRC js
+           function* authorize(user, password) {
+               try {
+                   const token = yield call(Api.authorize, user, password)
+                   yield put({type: 'LOGIN_SUCCESS', token})
+                   return token
+               } catch(error) {
+                   yield put({type: 'LOGIN_ERROR', error})
+               }
            }
-       }
-     #+END_SRC
+
+           function* loginFlow() {
+               while (true) {
+                   const {user, password} = yield take('LOGIN_REQUEST')
+                   const token = yield call(authorize, user, password)
+                   if (token) {
+                       yield call(Api.storeItem, {token})
+                       yield take('LOGOUT')
+                       yield call(Api.clearItem, 'token')
+                   }
+               }
+           }
+         #+END_SRC
+         + login 时调用 logout 问题
+       + Demo2
+         #+BEGIN_SRC js
+           function* authorize(user, password) {
+               try {
+                   const token = yield call(Api.authorize, user, password)
+                   yield put({type: 'LOGIN_SUCCESS', token})
+                   yield call(Api.storeItem, {token})
+               } catch(error) {
+                   yield put({type: 'LOGIN_ERROR', error})
+               }
+           }
+
+           function* loginFlow() {
+               while (true) {
+                   const {user, password} = yield take('LOGIN_REQUEST')
+                   const task = yield fork(authorize, user, password)
+                   yield take(['LOGOUT', 'LOGIN_ERROR'])
+                   if (action.type === 'LOGOUT')
+                       yield cancel(task)
+                   yield call(Api.clearItem, 'token')
+               }
+           }
+         #+END_SRC
+         + 如何把中断效果反馈 UI(cancel(task))
+       + Demo3
+         #+BEGIN_SRC js
+          function* authorize(user, password) {
+                try {
+                    const token = yield call(Api.authorize, user, password)
+                    yield put({type: 'LOGIN_SUCCESS', token})
+                    yield call(Api.storeItem, {token})
+                    return token
+                } catch(error) {
+                    yield put({type: 'LOGIN_ERROR', error})
+                } finally {
+                    if (yield cancelled()) {
+                        // ... put special cancellation handling code here
+                    }
+                }
+            }
+           function* loginFlow() {
+               while (true) {
+                   const {user, password} = yield take('LOGIN_REQUEST')
+                   // fork return a Task object
+                   const task = yield fork(authorize, user, password)
+                   const action = yield take(['LOGOUT', 'LOGIN_ERROR'])
+                   if (action.type === 'LOGOUT')
+                       yield cancel(task)
+                   yield call(Api.clearItem, 'token')
+               }
+           }
+         #+END_SRC
+         + 将 cancel 的中断反馈写在发起处
+
 
 **** takeEvery
      #+BEGIN_SRC js
@@ -207,4 +301,140 @@
        }
      #+END_SRC
 
-## 未完
+**** Channels
+     /take and put effects to communicate with the Redux Store./
+     /Channels generalize those Effects to communicate with external event sources or between Sagas themselves./
+     /They can also be used to queue specific actions from the Store./
+     take, put 与 store(store)交互
+     saga 任务之间交互使用 channels
+     也可以用 channels 事先队列调用
+
+***** actionChannel 实现队列调用
+      + code1
+      #+BEGIN_SRC js
+        function* watchRequests() {
+            while (true) {
+                const {payload} = yield take('REQUEST')
+                yield fork(handleRequest, payload)
+            }
+        }
+
+        function* handleRequest(payload) { ... }
+      #+END_SRC
+    + 队列调用
+      #+BEGIN_SRC js
+        function* watchRequests() {
+            // 1- Create a channel for request actions
+            const requestChan = yield actionChannel('REQUEST')
+            while (true) {
+                // 2- take from the channel
+                const {payload} = yield take(requestChan)
+                // 3- Note that we're using a blocking call
+                yield call(handleRequest, payload)
+            }
+        }
+
+        function* handleRequest(payload) { ... }
+      #+END_SRC
+
+*****   用 eventChannle 接收额外事件
+      /connect to external events/
+      /用于链接额外的事件/
+      /creates a Channel for events but from event sources other than the Redux Store./
+      #+BEGIN_SRC js
+        function countdown(secs) {
+            return eventChannel(emitter => {
+                const iv = setInterval(() => {
+                    secs -= 1
+                    if (secs > 0) {
+                        emitter(secs)
+                    } else {
+                        // this causes the channel to close
+                        emitter(END)
+                        clearInterval(iv)
+                    }
+                }, 1000);
+                // The subscriber must return an unsubscribe function
+                return () => {
+                    clearInterval(iv)
+                }
+            })
+        }
+        export function* saga() {
+            const chan = yield call(countdown, value)
+            try {
+                while (true) {
+                    // take(END) will cause the saga to terminate by jumping to the finally block
+                    let seconds = yield take(chan)
+                    console.log(`countdown: ${seconds}`)
+                }
+            } finally {
+                console.log('countdown terminated')
+            }
+        }
+      #+END_SRC
+
+      #+BEGIN_SRC js
+        // 从 socket 创建 eventChannel
+        function createSocketChannel(socket) {
+            // eventChannel 订阅 socket 消息并触发事件
+            return eventChannel(emit => {
+                const pingHandler = (event) => {
+                    emit(event.payload)
+                }
+                socket.on('ping', pingHandler)
+                const unsubscribe = () => {
+                  socket.off('ping', pingHandler)
+                }
+                return unsubscribe
+            })
+        }
+
+        // reply with a `pong` message by invoking `socket.emit('pong')`
+        function* pong(socket) {
+            yield call(delay, 5000)
+            yield apply(socket, socket.emit, ['pong']) // call `emit` as a method with `socket` as context
+        }
+
+        export function* watchOnPings() {
+            const socket = yield call(createWebSocketConnection)
+            const socketChannel = yield call(createSocketChannel, socket)
+
+            while (true) {
+                const payload = yield take(socketChannel)
+                yield put({ type: INCOMING_PONG_PAYLOAD, payload })
+                yield fork(pong, socket)
+            }
+        }
+      #+END_SRC
+
+***** 使用 channel 进行 saga 之间的交互
+      // 限制最大并发量
+      #+BEGIN_SRC js
+        function* watchRequests() {
+            // create a channel to queue incoming requests
+            const chan = yield call(channel)
+
+            // create 3 worker 'threads'
+            for (var i = 0; i < 3; i++) {
+                yield fork(handleRequest, chan)
+            }
+
+            while (true) {
+                const { payload } = yield take('REQUEST')
+                yield put(chan, payload)
+            }
+        }
+
+        function* handleRequest(chan) {
+            while (true) {
+                const payload = yield take(chan)
+                // process the request
+            }
+        }
+      #+END_SRC
+
+
+*** Bolcking / Non-blocking Effect
+    #+attr_html: :width 600px
+    [[./block:nonBlock.png]]
