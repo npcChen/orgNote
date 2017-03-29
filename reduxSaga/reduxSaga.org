@@ -174,7 +174,7 @@
          }
      }
      #+END_SRC
-     /注意点 while(true)的使用/
+     /注意点: while(true)的使用/
 
 **** fork
      /When we fork a task, the task is started in the background and
@@ -307,7 +307,7 @@
      /They can also be used to queue specific actions from the Store./
      take, put 与 store(store)交互
      saga 任务之间交互使用 channels
-     也可以用 channels 事先队列调用
+     也可以用 channels 实现队列调用
 
 ***** actionChannel 实现队列调用
       + code1
@@ -435,6 +435,10 @@
       #+END_SRC
 
 
+*** 总结
+    - 大部分情况下可以使用 takeEvery, takeLatest 完成需求的。
+    - 为什么使用 while(true){...} 而不是无脑使用 takeEvery，[[https://github.com/redux-saga/redux-saga/issues/684][issueLink]], takeEvery 被认为优点 overkill
+     
 *** Bolcking / Non-blocking Effect
     #+attr_html: :width 600px
     [[./block:nonBlock.png]]
