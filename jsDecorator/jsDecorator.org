@@ -1,0 +1,49 @@
+* JS装饰器
+** Object.defineProperty [[https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty][MDN]]
+   *Object.defineProperty(obj, prop, descriptor)*
+   
+*** Descriptor
+    |              | 描述                                         | 默认值    |
+    |--------------+----------------------------------------------+-----------|
+    | configurable | 可修改                                       | false     |
+    | enumerable   | 出现在Obj的枚举属性中                        | false     |
+    | value        | 可为任意JS支持的值(Number, Object, function) | undefined |
+    | writable     | 允许赋值运算符                               | false     |
+    | get          | 提供个体getter的方法                         |           |
+    | set          | 赋值时调用                                   |           |
+    
+    #+BEGIN_SRC js
+      var o = {}; // 创建一个新对象
+
+      // Example of an object property added with defineProperty with a data property descriptor
+      Object.defineProperty(o, "a", {
+          value : 37,
+          writable : true,
+          enumerable : true,
+          configurable : true
+      });
+
+      var bValue;
+      Object.defineProperty(o, "b", {
+          get : function(){
+              return bValue;
+          },
+          set : function(newValue){
+              bValue = newValue;
+          },
+          enumerable : true,
+          configurable : true
+      });
+
+    #+END_SRC
+
+
+
+
+
+
+
+
+
+
+

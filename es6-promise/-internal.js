@@ -56,7 +56,7 @@ function handleForeignThenable(promise, thenable, then) {
                         return;
                     }
                     sealed = true;
-                    if (thenable !== value) {
+                    if (thenable !== value) { // 避免callback return 为自身，从而导致死循环
                         resolve(promise, value);
                     } else {
                         fulfill(promise, value);
@@ -95,9 +95,12 @@ function handleOwnThenable(promise, thenable) {
 }
 
 function handleMaybeThenable(promise, maybeThenable, then) {
+    /*
+       then 为getThen返回值 (promise.then 或者 error)
+     */
     if (maybeThenable.constructor === promise.constructor &&
         then === originalThen &&
-        maybeThenable.constructor.resolve === originalResolve) {
+        maybeThenable.constructor.resolve === originalResolve) { // 为Promise对象
         handleOwnThenable(promise, maybeThenable);
     } else {
         if (then === GET_THEN_ERROR) {
@@ -113,10 +116,11 @@ function handleMaybeThenable(promise, maybeThenable, then) {
     }
 }
 
+// .then(value => {})
 function resolve(promise, value) {
-    if (promise === value) {
+    if (promise === value) { // promise 与 value一样， 避免死循环
         reject(promise, selfFulfillment());
-    } else if (objectOrFunction(value)) {
+    } else if (objectOrFunction(value)) { // value 为Obj或Fn 尝试promise调用
         handleMaybeThenable(promise, value, getThen(value));
     } else {
         fulfill(promise, value);
@@ -131,6 +135,7 @@ function publishRejection(promise) {
     publish(promise);
 }
 
+// 设置Promise state为fullFilled
 function fulfill(promise, value) {
     if (promise._state !== PENDING) {
         return;
@@ -165,6 +170,8 @@ function subscribe(parent, child, onFulfillment, onRejection) {
     parent._onerror = null;
 
     _subscribers[length] = child;
+    // FULFILLED 1
+    // REJECTED 2
     _subscribers[length + FULFILLED] = onFulfillment;
     _subscribers[length + REJECTED] = onRejection;
 
@@ -293,3 +300,6 @@ export {
     PENDING,
     handleMaybeThenable
 };
+
+
+
