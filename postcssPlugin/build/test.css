@@ -1,0 +1,7 @@
+.a {
+    height: 10px;
+    background-color: #fff;
+    font-size: 20px;
+    .haha {}
+}
+[data-dpr2].a {}

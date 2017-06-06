@@ -1,11 +1,11 @@
-## org-mode 笔记
-#### jsAsync
-js 异步一些写法 promise, yield
+## 笔记
 
-### jsType
-js 的类型验证
+## notFinish
+  + jsDecorator
 
-### reduxSage
-reduxSaga笔记
-    
+
+## todoList
+  + postcss
+  + elm
+
 
