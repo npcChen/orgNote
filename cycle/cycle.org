@@ -1,0 +1,49 @@
+* Cycle.js
+** cycle js 几个需要了解的点
+   1. Observalbe
+   2. VDOM
+   3. MVI
+   4. isolate
+   5. driver
+** Observalbe (Rx.js)
+   *Think of RxJS as Lodash for events*
+   - Observable: represents the idea of an invokable collection of future values or events.
+   - Observer: is a collection of callbacks that knows how to listen to values delivered by the Observable.
+   - Subscription: represents the execution of an Observable, is primarily useful for cancelling the execution.
+   - Operators: are pure functions that enable a functional programming style of dealing with collections with operations like map, filter, concat, flatMap, etc.
+   - Subject: is the equivalent to an EventEmitter, and the only way of multicasting a value or event to multiple Observers.
+   - Schedulers: are centralized dispatchers to control concurrency, allowing us to coordinate when computation happens on e.g. setTimeout or requestAnimationFrame or others.
+*** observable VS promise 
+    | observable                               | promise                                  |
+    |------------------------------------------+------------------------------------------|
+    | <l40>                                    | <l40>                                    |
+    | like a stream                            | only once                                |
+    | async or sync                            | async                                    |
+    | lazy                                     | not lazy                                 |
+    | cancellable                              | cancellable in shome thirdpart package   |
+    | retriable                                |                                          |
+
+    #+ATTR_ORG: :width 600
+    [[./observable_vs_promise.png]]
+
+    #+BEGIN_SRC js :results output
+      const Rx = require('rxjs');
+      const observable = Rx.Observable.create(function(observer) {
+          observer.next(1);
+          observer.next(2);
+          observer.next(3);
+          setTimeout(() => {
+              observer.next(4);
+              observer.complete();
+          }, 1000);
+      });
+
+      console.log('before');
+      observable.subscribe({
+          next: x => console.log('got value ' + x),
+          error: err => console.error('something wrong occurred: ' + err),
+          complete: () => console.log('done'),
+      })
+      console.log('after');
+
+    #+END_SRC
