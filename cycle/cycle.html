@@ -1,0 +1,1527 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2017-10-18 Wed 14:38 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>&lrm;</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="陈超" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/bigblow/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/bigblow/css/bigblow.css"/>
+<link rel="stylesheet" type="text/css" href="http://www.pirilampo.org/styles/bigblow/css/hideshow.css"/>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/bigblow/js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/bigblow/js/jquery-ui-1.10.2.min.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/bigblow/js/jquery.localscroll-min.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/bigblow/js/jquery.scrollTo-1.4.3.1-min.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/bigblow/js/jquery.zclip.min.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/bigblow/js/bigblow.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/bigblow/js/hideshow.js"></script>
+<script type="text/javascript" src="http://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2017 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org691b42f">1. Cycle.js</a>
+<ul>
+<li><a href="#org5564b67">1.1. cycle.js overview</a></li>
+<li><a href="#orgd79db29">1.2. Observalbe (Rx.js)</a>
+<ul>
+<li><a href="#org40bef38">1.2.1. Demo</a></li>
+<li><a href="#orgd5c5eb3">1.2.2. Rxjs essential concepts (基本概念)</a></li>
+<li><a href="#org3034ac9">1.2.3. Push vs Pull</a></li>
+<li><a href="#org79491ea">1.2.4. Observable</a></li>
+<li><a href="#orgaaa59d8">1.2.5. observable VS promise  stackoverflow</a></li>
+<li><a href="#org084884a">1.2.6. Observer</a></li>
+<li><a href="#org78e55f2">1.2.7. Subscription</a></li>
+<li><a href="#orge6a9e7d">1.2.8. Subject</a></li>
+<li><a href="#org99651bb">1.2.9. Operators</a></li>
+<li><a href="#org006d6ca">1.2.10. Scheduler</a></li>
+<li><a href="#orgda411ac">1.2.11. 相关阅读</a></li>
+</ul>
+</li>
+<li><a href="#orgf48e0bd">1.3. VDOM =&gt; snabbdom</a></li>
+<li><a href="#orga29afe6">1.4. a simple cycle example</a></li>
+<li><a href="#org7bd0d31">1.5. Cycle</a>
+<ul>
+<li><a href="#org1b5f770">1.5.1. inputs/outputs</a></li>
+<li><a href="#org61c2491">1.5.2. MVI</a></li>
+<li><a href="#orgc7f8601">1.5.3. CSS selectors</a></li>
+<li><a href="#org0c935d3">1.5.4. Component</a></li>
+<li><a href="#org50060fb">1.5.5. Driver</a></li>
+<li><a href="#orgfdb86ab">1.5.6. rxjs/run</a></li>
+<li><a href="#orgb2df60f">1.5.7. isolate</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org691b42f" class="outline-2">
+<h2 id="org691b42f"><span class="section-number-2">1</span> Cycle.js</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-org5564b67" class="outline-3">
+<h3 id="org5564b67"><span class="section-number-3">1.1</span> cycle.js overview</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+Multiple state streams
+=&gt; merged/combine into single state stream
+=&gt; vdom stream
+=&gt; diff
+</p>
+
+<ol class="org-ol">
+<li>Observalbe</li>
+<li>VDOM</li>
+<li>MVI</li>
+<li>isolate</li>
+<li>driver</li>
+<li>run</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgd79db29" class="outline-3">
+<h3 id="orgd79db29"><span class="section-number-3">1.2</span> Observalbe (Rx.js)</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+<b>Think of RxJS as Lodash for events</b>
+</p>
+</div>
+<div id="outline-container-org40bef38" class="outline-4">
+<h4 id="org40bef38"><span class="section-number-4">1.2.1</span> Demo</h4>
+<div class="outline-text-4" id="text-1-2-1">
+</div>
+<ol class="org-ol">
+<li><a id="org20a43b3"></a>实时搜索功能<br />
+<div class="outline-text-5" id="text-1-2-1-1">
+<ol class="org-ol">
+<li>debounce</li>
+<li>由于debounce的存在，保证若最新数据与上一个debounce一致，则不发起请求</li>
+<li>请求是异步的，使用最后的发出请求的返回值</li>
+<li>考虑请求失败情况
+<ul class="org-ul">
+<li>最多retry 3次</li>
+<li>488(访问过于频繁) 情况, 延迟1s后再次发送</li>
+<li>若返回为500则直接报错</li>
+</ul></li>
+</ol>
+
+<p>
+<a href="./examples/rxjs/index.html">./examples/rxjs/index.html</a>
+</p>
+</div>
+</li>
+</ol>
+</div>
+
+<div id="outline-container-orgd5c5eb3" class="outline-4">
+<h4 id="orgd5c5eb3"><span class="section-number-4">1.2.2</span> Rxjs essential concepts (基本概念)</h4>
+<div class="outline-text-4" id="text-1-2-2">
+<ul class="org-ul">
+<li>Observable: represents the idea of an invokable collection of future values or events.</li>
+<li>Observer: is a collection of callbacks that knows how to listen to values delivered by the Observable.</li>
+<li>Subscription: represents the execution of an Observable, is primarily useful for cancelling the execution.</li>
+<li>Operators: are pure functions that enable a functional programming style of dealing with collections with operations like map, filter, concat, flatMap, etc.</li>
+<li>Subject: is the equivalent to an EventEmitter, and the only way of multicasting a value or event to multiple Observers.</li>
+<li>Schedulers: are centralized dispatchers to control concurrency, allowing us to coordinate when computation happens on e.g. setTimeout or requestAnimationFrame or others.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org3034ac9" class="outline-4">
+<h4 id="org3034ac9"><span class="section-number-4">1.2.3</span> Push vs Pull</h4>
+<div class="outline-text-4" id="text-1-2-3">
+<p>
+<b>Pull and Push are two different protocols how a data Producer can communicate with a data Consumer</b>
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-left">Producer</th>
+<th scope="col" class="org-left">Consumer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Pull</td>
+<td class="org-left">Passive: produces data when requested</td>
+<td class="org-left">Active: decides when data is requested</td>
+</tr>
+
+<tr>
+<td class="org-left">Push</td>
+<td class="org-left">Active: produces data at its own pace</td>
+<td class="org-left">Passive: reacts to received data</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+<i><b>Observable is a push system</b></i>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org79491ea" class="outline-4">
+<h4 id="org79491ea"><span class="section-number-4">1.2.4</span> Observable</h4>
+<div class="outline-text-4" id="text-1-2-4">
+<p>
+<b>Observables are lazy Push collections of multiple values</b>
+</p>
+</div>
+
+<ol class="org-ol">
+<li><a id="org17653a8"></a>Observable can be multicast or unicast<br />
+<div class="outline-text-5" id="text-1-2-4-1">
+<p>
+<a href="#orgf7b472a">1.2.8.1</a>
+</p>
+</div>
+</li>
+
+<li><a id="org61b4cd1"></a>Observables are able to deliver values either synchronously or asynchronously<br />
+<div class="outline-text-5" id="text-1-2-4-2">
+<ul class="org-ul">
+<li><p>
+observable async and sync
+</p>
+<div class="org-src-container">
+<pre class="src src-js"><span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">Rx</span> = require<span style="color: #4f97d7;">(</span><span style="color: #2d9574;">'rxjs'</span><span style="color: #4f97d7;">)</span>;
+<span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">observable</span> = Rx.Observable.create<span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">function</span><span style="color: #bc6ec5;">(</span><span style="color: #7590db;">observer</span><span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span>
+    observer.next<span style="color: #2d9574;">(</span><span style="color: #a45bad;">1</span><span style="color: #2d9574;">)</span>;
+    observer.next<span style="color: #2d9574;">(</span><span style="color: #a45bad;">2</span><span style="color: #2d9574;">)</span>;
+    observer.next<span style="color: #2d9574;">(</span><span style="color: #a45bad;">3</span><span style="color: #2d9574;">)</span>;
+    setTimeout<span style="color: #2d9574;">(</span><span style="color: #67b11d;">()</span> =&gt; <span style="color: #67b11d;">{</span>
+        observer.next<span style="color: #b1951d;">(</span><span style="color: #a45bad;">4</span><span style="color: #b1951d;">)</span>;
+        observer.complete<span style="color: #b1951d;">()</span>;
+    <span style="color: #67b11d;">}</span>, <span style="color: #a45bad;">1000</span><span style="color: #2d9574;">)</span>;
+<span style="color: #bc6ec5;">}</span><span style="color: #4f97d7;">)</span>;
+
+observable.subscribe<span style="color: #4f97d7;">(</span><span style="color: #bc6ec5;">{</span>
+    next: x =&gt; console.log<span style="color: #2d9574;">(</span><span style="color: #2d9574;">'got value '</span> + x<span style="color: #2d9574;">)</span>,
+    error: err =&gt; console.error<span style="color: #2d9574;">(</span><span style="color: #2d9574;">'something wrong occurred: '</span> + err<span style="color: #2d9574;">)</span>,
+    complete: <span style="color: #2d9574;">()</span> =&gt; console.log<span style="color: #2d9574;">(</span><span style="color: #2d9574;">'done'</span><span style="color: #2d9574;">)</span>,
+<span style="color: #bc6ec5;">}</span><span style="color: #4f97d7;">)</span>
+console.log<span style="color: #4f97d7;">(</span><span style="color: #2d9574;">'before'</span><span style="color: #4f97d7;">)</span>;
+console.log<span style="color: #4f97d7;">(</span><span style="color: #2d9574;">'after'</span><span style="color: #4f97d7;">)</span>;
+
+</pre>
+</div></li>
+</ul>
+
+
+<ul class="org-ul">
+<li><p>
+observable use async schedulers
+</p>
+<div class="org-src-container">
+<pre class="src src-js"><span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">Rx</span> = require<span style="color: #4f97d7;">(</span><span style="color: #2d9574;">'rxjs'</span><span style="color: #4f97d7;">)</span>;
+<span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">observable</span> = Rx.Observable.create<span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">function</span><span style="color: #bc6ec5;">(</span><span style="color: #7590db;">observer</span><span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span>
+    observer.next<span style="color: #2d9574;">(</span><span style="color: #a45bad;">1</span><span style="color: #2d9574;">)</span>;
+    observer.next<span style="color: #2d9574;">(</span><span style="color: #a45bad;">2</span><span style="color: #2d9574;">)</span>;
+    observer.next<span style="color: #2d9574;">(</span><span style="color: #a45bad;">3</span><span style="color: #2d9574;">)</span>;
+    setTimeout<span style="color: #2d9574;">(</span><span style="color: #67b11d;">()</span> =&gt; <span style="color: #67b11d;">{</span>
+        observer.next<span style="color: #b1951d;">(</span><span style="color: #a45bad;">4</span><span style="color: #b1951d;">)</span>;
+        observer.complete<span style="color: #b1951d;">()</span>;
+    <span style="color: #67b11d;">}</span>, <span style="color: #a45bad;">1000</span><span style="color: #2d9574;">)</span>;
+<span style="color: #bc6ec5;">}</span><span style="color: #4f97d7;">)</span>.observeOn<span style="color: #4f97d7;">(</span>Rx.Scheduler.async<span style="color: #4f97d7;">)</span>;
+
+console.log<span style="color: #4f97d7;">(</span><span style="color: #2d9574;">'before'</span><span style="color: #4f97d7;">)</span>;
+observable.subscribe<span style="color: #4f97d7;">(</span><span style="color: #bc6ec5;">{</span>
+    next: x =&gt; console.log<span style="color: #2d9574;">(</span><span style="color: #2d9574;">'got value '</span> + x<span style="color: #2d9574;">)</span>,
+    error: err =&gt; console.error<span style="color: #2d9574;">(</span><span style="color: #2d9574;">'something wrong occurred: '</span> + err<span style="color: #2d9574;">)</span>,
+    complete: <span style="color: #2d9574;">()</span> =&gt; console.log<span style="color: #2d9574;">(</span><span style="color: #2d9574;">'done'</span><span style="color: #2d9574;">)</span>,
+<span style="color: #bc6ec5;">}</span><span style="color: #4f97d7;">)</span>
+console.log<span style="color: #4f97d7;">(</span><span style="color: #2d9574;">'after'</span><span style="color: #4f97d7;">)</span>;
+
+</pre>
+</div></li>
+</ul>
+</div>
+</li>
+
+
+
+<li><a id="orgfd2872c"></a>Observable may be hot or cold<br />
+<div class="outline-text-5" id="text-1-2-4-3">
+<p>
+<a href="https://medium.com/@benlesh/hot-vs-cold-observables-f8094ed53339">Medium:article</a>
+</p>
+</div>
+
+<ol class="org-ol">
+<li><a id="org2384e35"></a>cold<br />
+<div class="outline-text-6" id="text-1-2-4-3-1">
+<div class="org-src-container">
+<pre class="src src-js"><span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">Rx</span> = require<span style="color: #4f97d7;">(</span><span style="color: #2d9574;">'rxjs'</span><span style="color: #4f97d7;">)</span>;
+
+<span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">observable</span> = Rx.Observable.create<span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">function</span><span style="color: #bc6ec5;">(</span><span style="color: #7590db;">observer</span><span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span>
+   observer.next<span style="color: #2d9574;">(</span><span style="color: #a45bad;">1</span><span style="color: #2d9574;">)</span>;
+   observer.next<span style="color: #2d9574;">(</span><span style="color: #a45bad;">2</span><span style="color: #2d9574;">)</span>;
+
+   setTimeout<span style="color: #2d9574;">(</span><span style="color: #67b11d;">()</span> =&gt; <span style="color: #67b11d;">{</span>
+     observer.next<span style="color: #b1951d;">(</span><span style="color: #a45bad;">3</span><span style="color: #b1951d;">)</span>;
+   <span style="color: #67b11d;">}</span>, <span style="color: #a45bad;">500</span><span style="color: #2d9574;">)</span>
+ <span style="color: #bc6ec5;">}</span><span style="color: #4f97d7;">)</span>;
+
+observable.subscribe<span style="color: #4f97d7;">(</span><span style="color: #bc6ec5;">{</span>
+  next: <span style="color: #2d9574;">(</span>r<span style="color: #2d9574;">)</span> =&gt; console.log<span style="color: #2d9574;">(</span><span style="color: #2d9574;">'a:'</span> + r<span style="color: #2d9574;">)</span>,
+<span style="color: #bc6ec5;">}</span><span style="color: #4f97d7;">)</span>;
+
+observable.subscribe<span style="color: #4f97d7;">(</span><span style="color: #bc6ec5;">{</span>
+  next: <span style="color: #2d9574;">(</span>r<span style="color: #2d9574;">)</span> =&gt; console.log<span style="color: #2d9574;">(</span><span style="color: #2d9574;">'b:'</span> + r<span style="color: #2d9574;">)</span>,
+<span style="color: #bc6ec5;">}</span><span style="color: #4f97d7;">)</span>;
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="org9f5af2a"></a>hot<br />
+<div class="outline-text-6" id="text-1-2-4-3-2">
+<p>
+Rx.Observable.share: <i>Returns a new Observable that multicasts (shares) the original Observable. As long as there is at least one Subscriber this Observable will be subscribed and emitting data. When all subscribers have unsubscribed it will unsubscribe from the source Observable. Because the Observable is multicasting it makes the stream hot. This is an alias for .publish().refCount().</i>
+</p>
+<div class="org-src-container">
+<pre class="src src-js"><span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">Rx</span> = require<span style="color: #4f97d7;">(</span><span style="color: #2d9574;">'rxjs'</span><span style="color: #4f97d7;">)</span>;
+<span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">observable</span> = Rx.Observable.create<span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">function</span><span style="color: #bc6ec5;">(</span><span style="color: #7590db;">observer</span><span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span>
+  observer.next<span style="color: #2d9574;">(</span><span style="color: #a45bad;">1</span><span style="color: #2d9574;">)</span>;
+  observer.next<span style="color: #2d9574;">(</span><span style="color: #a45bad;">2</span><span style="color: #2d9574;">)</span>;
+
+  setTimeout<span style="color: #2d9574;">(</span><span style="color: #67b11d;">()</span> =&gt; <span style="color: #67b11d;">{</span>
+    observer.next<span style="color: #b1951d;">(</span><span style="color: #a45bad;">3</span><span style="color: #b1951d;">)</span>;
+  <span style="color: #67b11d;">}</span>, <span style="color: #a45bad;">500</span><span style="color: #2d9574;">)</span>
+<span style="color: #bc6ec5;">}</span><span style="color: #4f97d7;">)</span>.share<span style="color: #4f97d7;">()</span>;
+
+observable.subscribe<span style="color: #4f97d7;">(</span><span style="color: #bc6ec5;">{</span>
+  next: <span style="color: #2d9574;">(</span>r<span style="color: #2d9574;">)</span> =&gt; console.log<span style="color: #2d9574;">(</span><span style="color: #2d9574;">'a:'</span> + r<span style="color: #2d9574;">)</span>
+<span style="color: #bc6ec5;">}</span><span style="color: #4f97d7;">)</span>
+
+setTimeout<span style="color: #4f97d7;">(</span><span style="color: #bc6ec5;">()</span> =&gt; <span style="color: #bc6ec5;">{</span>
+  observable.subscribe<span style="color: #2d9574;">(</span><span style="color: #67b11d;">{</span>
+    next: <span style="color: #b1951d;">(</span>r<span style="color: #b1951d;">)</span> =&gt; console.log<span style="color: #b1951d;">(</span><span style="color: #2d9574;">'b:'</span> + r<span style="color: #b1951d;">)</span>
+  <span style="color: #67b11d;">}</span><span style="color: #2d9574;">)</span>
+<span style="color: #bc6ec5;">}</span>, <span style="color: #a45bad;">100</span><span style="color: #4f97d7;">)</span>;
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="org72d751e"></a>hot observable and subject<br />
+<div class="outline-text-6" id="text-1-2-4-3-3">
+<div class="org-src-container">
+<pre class="src src-js"><span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">Rx</span> = require<span style="color: #4f97d7;">(</span><span style="color: #2d9574;">'rxjs'</span><span style="color: #4f97d7;">)</span>;
+<span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">subject</span> = <span style="color: #4f97d7; font-weight: bold;">new</span> <span style="color: #ce537a; font-weight: bold;">Rx.Subject</span><span style="color: #4f97d7;">()</span>;
+<span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">cold</span> = Rx.Observable.create<span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">function</span><span style="color: #bc6ec5;">(</span><span style="color: #7590db;">observer</span><span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span>
+  observer.next<span style="color: #2d9574;">(</span><span style="color: #a45bad;">1</span><span style="color: #2d9574;">)</span>;
+  observer.next<span style="color: #2d9574;">(</span><span style="color: #a45bad;">2</span><span style="color: #2d9574;">)</span>;
+
+  setTimeout<span style="color: #2d9574;">(</span><span style="color: #67b11d;">()</span> =&gt; <span style="color: #67b11d;">{</span>
+    observer.next<span style="color: #b1951d;">(</span><span style="color: #a45bad;">3</span><span style="color: #b1951d;">)</span>;
+  <span style="color: #67b11d;">}</span>, <span style="color: #a45bad;">500</span><span style="color: #2d9574;">)</span>
+<span style="color: #bc6ec5;">}</span><span style="color: #4f97d7;">)</span>.share<span style="color: #4f97d7;">()</span>;
+
+<span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">hot</span> = cold.multicast<span style="color: #4f97d7;">(</span>subject<span style="color: #4f97d7;">)</span>;
+
+hot.subscribe<span style="color: #4f97d7;">(</span><span style="color: #bc6ec5;">{</span>
+  next: <span style="color: #2d9574;">(</span>r<span style="color: #2d9574;">)</span> =&gt; console.log<span style="color: #2d9574;">(</span><span style="color: #2d9574;">'a:'</span> + r<span style="color: #2d9574;">)</span>
+<span style="color: #bc6ec5;">}</span><span style="color: #4f97d7;">)</span>
+
+hot.connect<span style="color: #4f97d7;">()</span>;
+
+setTimeout<span style="color: #4f97d7;">(</span><span style="color: #bc6ec5;">()</span> =&gt; <span style="color: #bc6ec5;">{</span>
+  hot.subscribe<span style="color: #2d9574;">(</span><span style="color: #67b11d;">{</span>
+    next: <span style="color: #b1951d;">(</span>r<span style="color: #b1951d;">)</span> =&gt; console.log<span style="color: #b1951d;">(</span><span style="color: #2d9574;">'b:'</span> + r<span style="color: #b1951d;">)</span>
+  <span style="color: #67b11d;">}</span><span style="color: #2d9574;">)</span>
+<span style="color: #bc6ec5;">}</span>, <span style="color: #a45bad;">100</span><span style="color: #4f97d7;">)</span>;
+</pre>
+</div>
+</div>
+</li>
+</ol>
+</li>
+
+<li><a id="org91d18bf"></a>常见的几种JS对象对比<br />
+<div class="outline-text-5" id="text-1-2-4-4">
+<ol class="org-ol">
+<li>Function: a lazily evaluated computation that synchronously returns a single value on invocation.</li>
+<li>Generator: a lazily evaluated computation that synchronously returns zero to (potentially) infinite values on iteration.</li>
+<li>Promise: a computation that may (or may not) eventually return a single value.</li>
+<li>Observable a lazily evaluated computation that can synchronously or asynchronously return zero to (potentially) infinite values from the time it's invoked onwards.</li>
+</ol>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-left">lazy</th>
+<th scope="col" class="org-left">values</th>
+<th scope="col" class="org-left">async/sync</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Function</td>
+<td class="org-left">true</td>
+<td class="org-left">0 / single</td>
+<td class="org-left">sync</td>
+</tr>
+
+<tr>
+<td class="org-left">Generator</td>
+<td class="org-left">true</td>
+<td class="org-left">0 ~ infinite</td>
+<td class="org-left">sync (代码执行顺序)</td>
+</tr>
+
+<tr>
+<td class="org-left">Promise</td>
+<td class="org-left">false</td>
+<td class="org-left">0 / single</td>
+<td class="org-left">async</td>
+</tr>
+
+<tr>
+<td class="org-left">Observable</td>
+<td class="org-left">true</td>
+<td class="org-left">0 ~ infinite</td>
+<td class="org-left">async</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+</ol>
+</div>
+
+
+
+<div id="outline-container-orgaaa59d8" class="outline-4">
+<h4 id="orgaaa59d8"><span class="section-number-4">1.2.5</span> observable VS promise  <a href="https://stackoverflow.com/questions/37364973/angular-promise-vs-observable">stackoverflow</a></h4>
+<div class="outline-text-4" id="text-1-2-5">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">observable</th>
+<th scope="col" class="org-left">promise</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">like a stream</td>
+<td class="org-left">only once</td>
+</tr>
+
+<tr>
+<td class="org-left">async or sync</td>
+<td class="org-left">async</td>
+</tr>
+
+<tr>
+<td class="org-left">lazy</td>
+<td class="org-left">not lazy</td>
+</tr>
+
+<tr>
+<td class="org-left">cancellable</td>
+<td class="org-left">cancellable only in some thirdpart package</td>
+</tr>
+
+<tr>
+<td class="org-left">retriable</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+
+
+<div class="figure">
+<p><img src="./images/observable_vs_promise.png" alt="observable_vs_promise.png" width="600" />
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org084884a" class="outline-4">
+<h4 id="org084884a"><span class="section-number-4">1.2.6</span> Observer</h4>
+<div class="outline-text-4" id="text-1-2-6">
+<p>
+<b>An Observer is a consumer of values delivered by an Observable</b>
+<b>Observers are just objects with three callbacks, one for each type of notification that an Observable may deliver</b>
+</p>
+
+<p>
+three callbacks:
+</p>
+<ul class="org-ul">
+<li>next</li>
+<li>error</li>
+<li>complete</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org78e55f2" class="outline-4">
+<h4 id="org78e55f2"><span class="section-number-4">1.2.7</span> Subscription</h4>
+<div class="outline-text-4" id="text-1-2-7">
+<p>
+<b>A Subscription essentially just has an unsubscribe() function to release resources or cancel Observable executions</b>
+</p>
+<div class="org-src-container">
+<pre class="src src-js"><span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">observable</span> = Rx.Observable.interval<span style="color: #4f97d7;">(</span><span style="color: #a45bad;">1000</span><span style="color: #4f97d7;">)</span>;
+<span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">subscription</span> = observable.subscribe<span style="color: #4f97d7;">(</span>x =&gt; console.log<span style="color: #bc6ec5;">(</span>x<span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>;
+<span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">Later:</span>
+<span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">This cancels the ongoing Observable execution which</span>
+<span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">was started by calling subscribe with an Observer.</span>
+subscription.unsubscribe<span style="color: #4f97d7;">()</span>;
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge6a9e7d" class="outline-4">
+<h4 id="orge6a9e7d"><span class="section-number-4">1.2.8</span> Subject</h4>
+<div class="outline-text-4" id="text-1-2-8">
+<p>
+<b>A Subject is like an Observable, but can multicast to many Observers. Subjects are like EventEmitters: they maintain a registry of many listeners</b>
+<b>Every Subject is an Observable</b>
+<b>Every Subject is an Observer</b>
+</p>
+</div>
+
+<ol class="org-ol">
+<li><a id="orgf014710"></a><a id="orgf7b472a"></a> subject multicast<br />
+<div class="outline-text-5" id="text-1-2-8-1">
+<ul class="org-ul">
+<li>difference between subject and observable</li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-js"><span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">Rx</span> = require<span style="color: #4f97d7;">(</span><span style="color: #2d9574;">'rxjs'</span><span style="color: #4f97d7;">)</span>;
+<span style="color: #4f97d7; font-weight: bold;">var</span> <span style="color: #7590db;">observable</span> = Rx.Observable.create<span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">function</span><span style="color: #bc6ec5;">(</span><span style="color: #7590db;">observer</span><span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span>
+    observer.next<span style="color: #2d9574;">(</span>Math.random<span style="color: #67b11d;">()</span><span style="color: #2d9574;">)</span>;
+<span style="color: #bc6ec5;">}</span><span style="color: #4f97d7;">)</span>;
+
+observable.subscribe<span style="color: #4f97d7;">(</span>v =&gt; console.log<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">'consumer A: '</span> + v<span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>;
+observable.subscribe<span style="color: #4f97d7;">(</span>v =&gt; console.log<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">'consumer B: '</span> + v<span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>;
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-js"><span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">Rx</span> = require<span style="color: #4f97d7;">(</span><span style="color: #2d9574;">'rxjs'</span><span style="color: #4f97d7;">)</span>;
+<span style="color: #4f97d7; font-weight: bold;">var</span> <span style="color: #7590db;">observable</span> = Rx.Observable.create<span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">function</span><span style="color: #bc6ec5;">(</span><span style="color: #7590db;">observer</span><span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span>
+    observer.next<span style="color: #2d9574;">(</span>Math.random<span style="color: #67b11d;">()</span><span style="color: #2d9574;">)</span>;
+<span style="color: #bc6ec5;">}</span><span style="color: #4f97d7;">)</span>;
+
+<span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">subject</span> = <span style="color: #4f97d7; font-weight: bold;">new</span> <span style="color: #ce537a; font-weight: bold;">Rx.Subject</span><span style="color: #4f97d7;">()</span>;
+
+<span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">subject is an observable</span>
+subject.subscribe<span style="color: #4f97d7;">(</span>v =&gt; console.log<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">'consumer A: '</span> + v<span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>;
+subject.subscribe<span style="color: #4f97d7;">(</span>v =&gt; console.log<span style="color: #bc6ec5;">(</span><span style="color: #2d9574;">'consumer B: '</span> + v<span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>;
+
+<span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">subject is an observer</span>
+observable.subscribe<span style="color: #4f97d7;">(</span>subject<span style="color: #4f97d7;">)</span>;
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="org7fc2be4"></a>Multicasted Observables<br />
+<div class="outline-text-5" id="text-1-2-8-2">
+<p>
+<b>A multicasted Observable uses a Subject under the hood to make multiple Observers see the same Observable execution</b>
+</p>
+<div class="org-src-container">
+<pre class="src src-js"><span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">Rx</span> = require<span style="color: #4f97d7;">(</span><span style="color: #2d9574;">'rxjs'</span><span style="color: #4f97d7;">)</span>;
+<span style="color: #4f97d7; font-weight: bold;">var</span> <span style="color: #7590db;">source</span> = Rx.Observable.from<span style="color: #4f97d7;">(</span><span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">1</span>, <span style="color: #a45bad;">2</span>, <span style="color: #a45bad;">3</span><span style="color: #bc6ec5;">]</span><span style="color: #4f97d7;">)</span>;
+<span style="color: #4f97d7; font-weight: bold;">var</span> <span style="color: #7590db;">subject</span> = <span style="color: #4f97d7; font-weight: bold;">new</span> <span style="color: #ce537a; font-weight: bold;">Rx.Subject</span><span style="color: #4f97d7;">()</span>;
+<span style="color: #4f97d7; font-weight: bold;">var</span> <span style="color: #7590db;">multicasted</span> = source.multicast<span style="color: #4f97d7;">(</span>subject<span style="color: #4f97d7;">)</span>;
+
+<span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">These are, under the hood, `subject.subscribe({...})`:</span>
+multicasted.subscribe<span style="color: #4f97d7;">(</span><span style="color: #bc6ec5;">{</span>
+    next: <span style="color: #2d9574;">(</span>v<span style="color: #2d9574;">)</span> =&gt; console.log<span style="color: #2d9574;">(</span><span style="color: #2d9574;">'observerA: '</span> + v<span style="color: #2d9574;">)</span>
+<span style="color: #bc6ec5;">}</span><span style="color: #4f97d7;">)</span>;
+multicasted.subscribe<span style="color: #4f97d7;">(</span><span style="color: #bc6ec5;">{</span>
+    next: <span style="color: #2d9574;">(</span>v<span style="color: #2d9574;">)</span> =&gt; console.log<span style="color: #2d9574;">(</span><span style="color: #2d9574;">'observerB: '</span> + v<span style="color: #2d9574;">)</span>
+<span style="color: #bc6ec5;">}</span><span style="color: #4f97d7;">)</span>;
+
+<span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">This is, under the hood, `source.subscribe(subject)`:</span>
+<span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">&#27880;&#24847; connect &#35843;&#29992;</span>
+multicasted.connect<span style="color: #4f97d7;">()</span>;
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="org5d5ef88"></a>Reference counting / refCount  &lt;===&gt; understand with hot/cold observable<br />
+<div class="outline-text-5" id="text-1-2-8-3">
+<p>
+<b>解决multicasted observables start and stop executing</b>
+</p>
+
+<ul class="org-ul">
+<li>connect 函数
+<i>The connect() method is important to determine exactly when the shared Observable execution will start</i></li>
+<li>refCount 函数
+<i>refCount makes the multicasted Observable automatically start executing when the first subscriber arrives, and stop executing when the last subscriber leaves.</i></li>
+</ul>
+</div>
+</li>
+
+<li><a id="orgf2d076c"></a>BehaviorSubject<br />
+<div class="outline-text-5" id="text-1-2-8-4">
+<p>
+<b>BehaviorSubjects are useful for representing "values over time". For instance, an event stream of birthdays is a Subject, but the stream of a person's age would be a BehaviorSubject.</b>
+</p>
+<div class="org-src-container">
+<pre class="src src-js"><span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">Rx</span> = require<span style="color: #4f97d7;">(</span><span style="color: #2d9574;">'rxjs'</span><span style="color: #4f97d7;">)</span>;
+<span style="color: #4f97d7; font-weight: bold;">var</span> <span style="color: #7590db;">subject</span> = <span style="color: #4f97d7; font-weight: bold;">new</span> <span style="color: #ce537a; font-weight: bold;">Rx.BehaviorSubject</span><span style="color: #4f97d7;">(</span><span style="color: #a45bad;">0</span><span style="color: #4f97d7;">)</span>; <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">0 is the initial value</span>
+subject.subscribe<span style="color: #4f97d7;">(</span><span style="color: #bc6ec5;">{</span>
+    next: <span style="color: #2d9574;">(</span>v<span style="color: #2d9574;">)</span> =&gt; console.log<span style="color: #2d9574;">(</span><span style="color: #2d9574;">'A: '</span> + v<span style="color: #2d9574;">)</span>
+<span style="color: #bc6ec5;">}</span><span style="color: #4f97d7;">)</span>;
+
+subject.next<span style="color: #4f97d7;">(</span><span style="color: #a45bad;">1</span><span style="color: #4f97d7;">)</span>;
+subject.next<span style="color: #4f97d7;">(</span><span style="color: #a45bad;">2</span><span style="color: #4f97d7;">)</span>;
+
+<span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">notice: &#22312;&#26368;&#26032;subject.next&#20043;&#21069;&#65292;&#33719;&#21462;&#21040;&#20102;&#20043;&#21069;&#30340;&#26368;&#26032;&#25968;&#25454;</span>
+subject.subscribe<span style="color: #4f97d7;">(</span><span style="color: #bc6ec5;">{</span>
+    next: <span style="color: #2d9574;">(</span>v<span style="color: #2d9574;">)</span> =&gt; console.log<span style="color: #2d9574;">(</span><span style="color: #2d9574;">'observerB: '</span> + v<span style="color: #2d9574;">)</span>
+<span style="color: #bc6ec5;">}</span><span style="color: #4f97d7;">)</span>;
+
+subject.next<span style="color: #4f97d7;">(</span><span style="color: #a45bad;">3</span><span style="color: #4f97d7;">)</span>;
+
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="orgab16019"></a>ReplaySubject<br />
+<div class="outline-text-5" id="text-1-2-8-5">
+<p>
+<b>A ReplaySubject records multiple values from the Observable execution and replays them to new subscribers.</b>
+记住最近的若干次next值
+</p>
+<div class="org-src-container">
+<pre class="src src-js"><span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">Rx</span> = require<span style="color: #4f97d7;">(</span><span style="color: #2d9574;">'rxjs'</span><span style="color: #4f97d7;">)</span>;
+<span style="color: #4f97d7; font-weight: bold;">var</span> <span style="color: #7590db;">subject</span> = <span style="color: #4f97d7; font-weight: bold;">new</span> <span style="color: #ce537a; font-weight: bold;">Rx.ReplaySubject</span><span style="color: #4f97d7;">(</span><span style="color: #a45bad;">3</span><span style="color: #4f97d7;">)</span>; <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">buffer 3 values for new subscribers</span>
+
+subject.subscribe<span style="color: #4f97d7;">(</span><span style="color: #bc6ec5;">{</span>
+    next: <span style="color: #2d9574;">(</span>v<span style="color: #2d9574;">)</span> =&gt; console.log<span style="color: #2d9574;">(</span><span style="color: #2d9574;">'A: '</span> + v<span style="color: #2d9574;">)</span>
+<span style="color: #bc6ec5;">}</span><span style="color: #4f97d7;">)</span>;
+
+subject.next<span style="color: #4f97d7;">(</span><span style="color: #a45bad;">1</span><span style="color: #4f97d7;">)</span>;
+subject.next<span style="color: #4f97d7;">(</span><span style="color: #a45bad;">2</span><span style="color: #4f97d7;">)</span>;
+subject.next<span style="color: #4f97d7;">(</span><span style="color: #a45bad;">3</span><span style="color: #4f97d7;">)</span>;
+subject.next<span style="color: #4f97d7;">(</span><span style="color: #a45bad;">4</span><span style="color: #4f97d7;">)</span>;
+
+subject.subscribe<span style="color: #4f97d7;">(</span><span style="color: #bc6ec5;">{</span>
+    next: <span style="color: #2d9574;">(</span>v<span style="color: #2d9574;">)</span> =&gt; console.log<span style="color: #2d9574;">(</span><span style="color: #2d9574;">'observerB: '</span> + v<span style="color: #2d9574;">)</span>
+<span style="color: #bc6ec5;">}</span><span style="color: #4f97d7;">)</span>;
+
+subject.next<span style="color: #4f97d7;">(</span><span style="color: #a45bad;">5</span><span style="color: #4f97d7;">)</span>;
+</pre>
+</div>
+</div>
+</li>
+
+
+<li><a id="org101d81e"></a>AsyncSubject<br />
+<div class="outline-text-5" id="text-1-2-8-6">
+<p>
+<b>The AsyncSubject is a variant where only the last value of the Observable execution is sent to its observers, and only when the execution completes.</b>
+仅当subject complete时，将最终结果发送给observer
+</p>
+<div class="org-src-container">
+<pre class="src src-js"><span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">Rx</span> = require<span style="color: #4f97d7;">(</span><span style="color: #2d9574;">'rxjs'</span><span style="color: #4f97d7;">)</span>;
+<span style="color: #4f97d7; font-weight: bold;">var</span> <span style="color: #7590db;">subject</span> = <span style="color: #4f97d7; font-weight: bold;">new</span> <span style="color: #ce537a; font-weight: bold;">Rx.AsyncSubject</span><span style="color: #4f97d7;">()</span>;
+
+subject.subscribe<span style="color: #4f97d7;">(</span><span style="color: #bc6ec5;">{</span>
+    next: <span style="color: #2d9574;">(</span>v<span style="color: #2d9574;">)</span> =&gt; console.log<span style="color: #2d9574;">(</span><span style="color: #2d9574;">'A: '</span> + v<span style="color: #2d9574;">)</span>
+<span style="color: #bc6ec5;">}</span><span style="color: #4f97d7;">)</span>;
+
+subject.next<span style="color: #4f97d7;">(</span><span style="color: #a45bad;">1</span><span style="color: #4f97d7;">)</span>;
+subject.next<span style="color: #4f97d7;">(</span><span style="color: #a45bad;">2</span><span style="color: #4f97d7;">)</span>;
+subject.next<span style="color: #4f97d7;">(</span><span style="color: #a45bad;">3</span><span style="color: #4f97d7;">)</span>;
+subject.next<span style="color: #4f97d7;">(</span><span style="color: #a45bad;">4</span><span style="color: #4f97d7;">)</span>;
+
+subject.subscribe<span style="color: #4f97d7;">(</span><span style="color: #bc6ec5;">{</span>
+    next: <span style="color: #2d9574;">(</span>v<span style="color: #2d9574;">)</span> =&gt; console.log<span style="color: #2d9574;">(</span><span style="color: #2d9574;">'observerB: '</span> + v<span style="color: #2d9574;">)</span>
+<span style="color: #bc6ec5;">}</span><span style="color: #4f97d7;">)</span>;
+
+subject.next<span style="color: #4f97d7;">(</span><span style="color: #a45bad;">5</span><span style="color: #4f97d7;">)</span>;
+subject.complete<span style="color: #4f97d7;">()</span>;
+</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+
+<div id="outline-container-org99651bb" class="outline-4">
+<h4 id="org99651bb"><span class="section-number-4">1.2.9</span> Operators</h4>
+<div class="outline-text-4" id="text-1-2-9">
+<p>
+<b>An Operator is a function which creates a new Observable based on the current Observable. This is a pure operation: the previous Observable stays unmodified.</b>
+</p>
+
+<p>
+like .map(&#x2026;), .filter(&#x2026;), .merge(&#x2026;)
+</p>
+</div>
+
+<ol class="org-ol">
+<li><a id="org5508428"></a>instance / static operators<br />
+<div class="outline-text-5" id="text-1-2-9-1">
+<ul class="org-ul">
+<li><p>
+instance (map, filter &#x2026;)
+</p>
+<div class="org-src-container">
+<pre class="src src-js"><span style="color: #4f97d7; font-weight: bold;">var</span> <span style="color: #7590db;">observable</span> = Rx.Observable.from<span style="color: #4f97d7;">(</span><span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">1</span>, <span style="color: #a45bad;">2</span>, <span style="color: #a45bad;">3</span>, <span style="color: #a45bad;">4</span><span style="color: #bc6ec5;">]</span><span style="color: #4f97d7;">)</span>.multiplyByTen<span style="color: #4f97d7;">()</span>;
+</pre>
+</div></li>
+<li><p>
+static (interval, create &#x2026;)
+</p>
+<div class="org-src-container">
+<pre class="src src-js"><span style="color: #4f97d7; font-weight: bold;">var</span> <span style="color: #7590db;">observable</span> = Rx.Observable.interval<span style="color: #4f97d7;">(</span><span style="color: #a45bad;">1000</span> <span style="color: #2aa1ae; background-color: #292e34;">/* </span><span style="color: #2aa1ae; background-color: #292e34;">number of milliseconds */</span><span style="color: #4f97d7;">)</span>;
+</pre>
+</div></li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+
+<div id="outline-container-org006d6ca" class="outline-4">
+<h4 id="org006d6ca"><span class="section-number-4">1.2.10</span> Scheduler</h4>
+<div class="outline-text-4" id="text-1-2-10">
+<p>
+<b>A scheduler controls when a subscription starts and when notifications are delivered</b>
+</p>
+
+<ul class="org-ul">
+<li>all Observable operators that deal with concurrency have optional schedulers</li>
+<li>Static creation operators usually take a Scheduler as argument</li>
+<li><p>
+If you do not provide the scheduler, RxJS will pick a default scheduler by using the principle of least concurrency (最少并发原则)
+</p>
+
+<div class="org-src-container">
+<pre class="src src-js"><span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">Rx</span> = require<span style="color: #4f97d7;">(</span><span style="color: #2d9574;">'rxjs'</span><span style="color: #4f97d7;">)</span>;
+console.log<span style="color: #4f97d7;">(</span><span style="color: #2d9574;">'sync start'</span><span style="color: #4f97d7;">)</span>;
+Rx.Observable
+    .from<span style="color: #4f97d7;">(</span><span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">1</span>, <span style="color: #a45bad;">2</span>, <span style="color: #a45bad;">3</span><span style="color: #bc6ec5;">]</span><span style="color: #4f97d7;">)</span>
+    .subscribe<span style="color: #4f97d7;">(</span><span style="color: #bc6ec5;">{</span>
+        next: <span style="color: #2d9574;">(</span>v<span style="color: #2d9574;">)</span> =&gt; console.log<span style="color: #2d9574;">(</span>v<span style="color: #2d9574;">)</span>
+    <span style="color: #bc6ec5;">}</span><span style="color: #4f97d7;">)</span>
+console.log<span style="color: #4f97d7;">(</span><span style="color: #2d9574;">'sync end'</span><span style="color: #4f97d7;">)</span>;
+
+console.log<span style="color: #4f97d7;">(</span><span style="color: #2d9574;">'----------------'</span><span style="color: #4f97d7;">)</span>;
+
+console.log<span style="color: #4f97d7;">(</span><span style="color: #2d9574;">'async start'</span><span style="color: #4f97d7;">)</span>;
+Rx.Observable
+    .from<span style="color: #4f97d7;">(</span><span style="color: #bc6ec5;">[</span><span style="color: #a45bad;">1</span>, <span style="color: #a45bad;">2</span>, <span style="color: #a45bad;">3</span><span style="color: #bc6ec5;">]</span>, Rx.Scheduler.async<span style="color: #4f97d7;">)</span>
+    .subscribe<span style="color: #4f97d7;">(</span><span style="color: #bc6ec5;">{</span>
+        next: <span style="color: #2d9574;">(</span>v<span style="color: #2d9574;">)</span> =&gt; console.log<span style="color: #2d9574;">(</span>v<span style="color: #2d9574;">)</span>
+    <span style="color: #bc6ec5;">}</span><span style="color: #4f97d7;">)</span>
+console.log<span style="color: #4f97d7;">(</span><span style="color: #2d9574;">'async end'</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgda411ac" class="outline-4">
+<h4 id="orgda411ac"><span class="section-number-4">1.2.11</span> 相关阅读</h4>
+<div class="outline-text-4" id="text-1-2-11">
+<ul class="org-ul">
+<li><a href="http://reactivex.io/rxjs/manual/overview.html">Rxjs overview</a></li>
+<li><a href="https://medium.com/@benlesh">Medium: Ben Lesh</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgf48e0bd" class="outline-3">
+<h3 id="orgf48e0bd"><span class="section-number-3">1.3</span> VDOM =&gt; <a href="https://github.com/snabbdom/snabbdom">snabbdom</a></h3>
+</div>
+
+<div id="outline-container-orga29afe6" class="outline-3">
+<h3 id="orga29afe6"><span class="section-number-3">1.4</span> a simple cycle example</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+<a href="./examples/cycle/index.html">./examples/cycle/index.html</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org7bd0d31" class="outline-3">
+<h3 id="org7bd0d31"><span class="section-number-3">1.5</span> Cycle</h3>
+<div class="outline-text-3" id="text-1-5">
+</div>
+<div id="outline-container-org1b5f770" class="outline-4">
+<h4 id="org1b5f770"><span class="section-number-4">1.5.1</span> inputs/outputs</h4>
+<div class="outline-text-4" id="text-1-5-1">
+<p>
+灵感来源
+</p>
+
+<div class="figure">
+<p><img src="./images/hci-inputs-outputs.svg.png" alt="hci-inputs-outputs.svg.png" />
+</p>
+</div>
+
+<p>
+Similarity with Haskell 1.0 Stream-based I/O:
+</p>
+<div class="org-src-container">
+<pre class="src src-haskell"><span style="color: #4f97d7; font-weight: bold;">type</span> <span style="color: #ce537a; font-weight: bold;">Dialogue</span> <span style="color: #7590db;">=</span> <span style="color: #4f97d7;">[</span><span style="color: #ce537a; font-weight: bold;">Response</span><span style="color: #4f97d7;">]</span> <span style="color: #7590db;">-&gt;</span> <span style="color: #4f97d7;">[</span><span style="color: #ce537a; font-weight: bold;">Request</span><span style="color: #4f97d7;">]</span>
+</pre>
+</div>
+<p>
+the model of interaction with the Operating System
+</p>
+<ul class="org-ul">
+<li>[Response] is a stream (lazy potentially-infinite list, to be more accurate) of messages from the OS</li>
+<li>[Request] is a stream of messages to the OS.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org61c2491" class="outline-4">
+<h4 id="org61c2491"><span class="section-number-4">1.5.2</span> MVI</h4>
+<div class="outline-text-4" id="text-1-5-2">
+</div>
+<ol class="org-ol">
+<li><a id="orgf80648b"></a>Reactive programming:<br />
+<div class="outline-text-5" id="text-1-5-2-1">
+<p>
+In computing, reactive programming is an <b>asynchronous programming</b> paradigm concerned with <b>data streams</b> and <b>the propagation of change</b>
+</p>
+
+<ul class="org-ul">
+<li><a href="https://en.wikipedia.org/wiki/Reactive_programming">wikipedia</a></li>
+<li><a href="https://stackoverflow.com/questions/1028250/what-is-functional-reactive-programming">stackoverflow</a></li>
+<li><a href="http://www.infoq.com/cn/articles/functional-reactive-programming">infoQ</a></li>
+</ul>
+
+<p>
+<b>Reactivity is an important aspect in Cycle.js</b>
+</p>
+</div>
+</li>
+
+<li><a id="org6010f3d"></a>MVC<br />
+<div class="outline-text-5" id="text-1-5-2-2">
+
+<div class="figure">
+<p><img src="./images/mvc-diagram.svg.png" alt="mvc-diagram.svg.png" width="600" />
+</p>
+</div>
+
+
+<p>
+The Controller in MVC is incompatible with our reactive ideals, because it is a proactive component (implying either passive Model or passive View).
+</p>
+
+<p>
+Trygve Reenskaug, inventor of MVC:
+    The essential purpose of MVC is to bridge the gap between the human user’s mental model and the digital model that exists in the computer.
+</p>
+</div>
+</li>
+
+<li><a id="orgf4288e5"></a>MVI<br />
+<div class="outline-text-5" id="text-1-5-2-3">
+<ul class="org-ul">
+<li>intent() function
+<ul class="org-ul">
+<li>Purpose: interpret DOM events as user’s intended actions</li>
+<li>Input: DOM source</li>
+<li>Output: Action Streams</li>
+</ul></li>
+
+<li>model() function
+<ul class="org-ul">
+<li>Purpose: manage state</li>
+<li>Input: Action Streams</li>
+<li>Output: State Stream</li>
+</ul></li>
+
+<li>view() function
+<ul class="org-ul">
+<li>Purpose: visually represent state from the Model</li>
+<li>Input: State Stream</li>
+<li>Output: Stream of Virtual DOM nodes as the DOM Driver sink</li>
+</ul></li>
+</ul>
+
+<p>
+Model-View-Intent (MVI) is <b>reactive</b>, <b>functional</b>, and follows the <b>core idea in MVC</b>.
+</p>
+</div>
+</li>
+</ol>
+</div>
+
+<div id="outline-container-orgc7f8601" class="outline-4">
+<h4 id="orgc7f8601"><span class="section-number-4">1.5.3</span> CSS selectors</h4>
+<div class="outline-text-4" id="text-1-5-3">
+</div>
+<ol class="org-ol">
+<li><a id="org771d0f6"></a>code in example<br />
+<div class="outline-text-6" id="text-1-5-3-0-1">
+<div class="org-src-container">
+<pre class="src src-js"><span style="color: #4f97d7; font-weight: bold;">function</span> <span style="color: #bc6ec5; font-weight: bold;">indent</span><span style="color: #4f97d7;">(</span><span style="color: #7590db;">domSource</span><span style="color: #4f97d7;">)</span> <span style="color: #4f97d7;">{</span>
+  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #bc6ec5;">{</span>
+    change$: domSource
+      .select<span style="color: #2d9574;">(</span><span style="color: #2d9574;">'.input'</span><span style="color: #2d9574;">)</span>
+      .events<span style="color: #2d9574;">(</span><span style="color: #2d9574;">'input'</span><span style="color: #2d9574;">)</span>
+      .map<span style="color: #2d9574;">(</span>e =&gt; e.target.value<span style="color: #2d9574;">)</span>
+  <span style="color: #bc6ec5;">}</span>;
+<span style="color: #4f97d7;">}</span>
+</pre>
+</div>
+</div>
+</li>
+
+<li><a id="orgae41fa7"></a>ensure View to be simply declare a visual representation of the Model<br /></li>
+</ol>
+</div>
+
+<div id="outline-container-org0c935d3" class="outline-4">
+<h4 id="org0c935d3"><span class="section-number-4">1.5.4</span> Component</h4>
+<div class="outline-text-4" id="text-1-5-4">
+</div>
+<ol class="org-ol">
+<li><a id="orgb47e9f1"></a>component dataflow<br />
+<div class="outline-text-6" id="text-1-5-4-0-1">
+
+<div class="figure">
+<p><img src="./images/dataflow-component.svg.png" alt="dataflow-component.svg.png" width="400" />
+</p>
+</div>
+</div>
+</li>
+
+<li><a id="orgc389bfb"></a>nested component<br />
+<div class="outline-text-6" id="text-1-5-4-0-2">
+
+<div class="figure">
+<p><img src="./images/nested-components.svg.png" alt="nested-components.svg.png" width="400" />
+</p>
+</div>
+</div>
+</li>
+</ol>
+</div>
+
+
+<div id="outline-container-org50060fb" class="outline-4">
+<h4 id="org50060fb"><span class="section-number-4">1.5.5</span> Driver</h4>
+<div class="outline-text-4" id="text-1-5-5">
+<p>
+<b>Drivers are functions that listen to sink streams (their input), perform imperative side effects, and may return source streams (their output)</b>
+</p>
+
+
+<p>
+sources =&gt; main  =&gt; sinks =&gt; Driver =&gt; sources
+</p>
+</div>
+
+<ol class="org-ol">
+<li><a id="orgb3f1921"></a>input / output<br />
+<div class="outline-text-6" id="text-1-5-5-0-1">
+<p>
+input: expected to be a single xstream stream
+output: be a single stream or a queryable collection of streams (A queryable collection of streams is essentially a JavaScript object with a function used to choose a particular stream based on a parameter, e.g. get(param).)
+</p>
+</div>
+</li>
+
+<li><a id="orgc888862"></a>read only / write only<br />
+<div class="outline-text-6" id="text-1-5-5-0-2">
+<p>
+<b>相对于main函数</b>
+</p>
+
+<p>
+read only =&gt; driver 返回soruces 但不依赖main任意sinks
+write only =&gt; driver 只接受 sinks 不返回 sources
+</p>
+</div>
+</li>
+
+<li><a id="org0e61097"></a>编写driver的时候使用xstream<br /></li>
+<li><a id="org900412e"></a>多stream库兼容<br />
+<div class="outline-text-6" id="text-1-5-5-0-4">
+<p>
+<b>使用@cycle/run/lib/adapt</b>
+</p>
+</div>
+</li>
+
+<li><a id="orgf489130"></a>Demo<br />
+<div class="outline-text-6" id="text-1-5-5-0-5">
+<div class="org-src-container">
+<pre class="src src-js"><span style="color: #4f97d7; font-weight: bold;">import</span> <span style="color: #4f97d7;">{</span>adapt<span style="color: #4f97d7;">}</span> from <span style="color: #2d9574;">'@cycle/run/lib/adapt'</span>;
+
+<span style="color: #4f97d7; font-weight: bold;">function</span> <span style="color: #bc6ec5; font-weight: bold;">makeSockDriver</span><span style="color: #4f97d7;">(</span><span style="color: #7590db;">peerId</span><span style="color: #4f97d7;">)</span> <span style="color: #4f97d7;">{</span>
+  <span style="color: #4f97d7; font-weight: bold;">let</span> <span style="color: #7590db;">sock</span> = <span style="color: #4f97d7; font-weight: bold;">new</span> <span style="color: #ce537a; font-weight: bold;">Sock</span><span style="color: #bc6ec5;">(</span>peerId<span style="color: #bc6ec5;">)</span>;
+
+  <span style="color: #4f97d7; font-weight: bold;">function</span> <span style="color: #bc6ec5; font-weight: bold;">sockDriver</span><span style="color: #bc6ec5;">(</span><span style="color: #7590db;">outgoing$</span><span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span>
+    outgoing$.addListener<span style="color: #2d9574;">(</span><span style="color: #67b11d;">{</span>
+      next: outgoing =&gt; <span style="color: #b1951d;">{</span>
+        sock.send<span style="color: #4f97d7;">(</span>outgoing<span style="color: #4f97d7;">)</span>;
+      <span style="color: #b1951d;">}</span>,
+      error: <span style="color: #b1951d;">()</span> =&gt; <span style="color: #b1951d;">{}</span>,
+      complete: <span style="color: #b1951d;">()</span> =&gt; <span style="color: #b1951d;">{}</span>,
+    <span style="color: #67b11d;">}</span><span style="color: #2d9574;">)</span>;
+
+    <span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">incoming$</span> = xs.create<span style="color: #2d9574;">(</span><span style="color: #67b11d;">{</span>
+      start: listener =&gt; <span style="color: #b1951d;">{</span>
+        sock.onReceive<span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">function</span> <span style="color: #bc6ec5;">(</span><span style="color: #7590db;">msg</span><span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span>
+          listener.next<span style="color: #2d9574;">(</span>msg<span style="color: #2d9574;">)</span>;
+        <span style="color: #bc6ec5;">}</span><span style="color: #4f97d7;">)</span>;
+      <span style="color: #b1951d;">}</span>,
+      stop: <span style="color: #b1951d;">()</span> =&gt; <span style="color: #b1951d;">{}</span>,
+    <span style="color: #67b11d;">}</span><span style="color: #2d9574;">)</span>;
+
+    <span style="color: #4f97d7; font-weight: bold;">return</span> adapt<span style="color: #2d9574;">(</span>incoming$<span style="color: #2d9574;">)</span>;
+  <span style="color: #bc6ec5;">}</span>
+
+  <span style="color: #4f97d7; font-weight: bold;">return</span> sockDriver;
+<span style="color: #4f97d7;">}</span>
+</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+
+
+<div id="outline-container-orgfdb86ab" class="outline-4">
+<h4 id="orgfdb86ab"><span class="section-number-4">1.5.6</span> rxjs/run</h4>
+<div class="outline-text-4" id="text-1-5-6">
+<div class="org-src-container">
+<pre class="src src-js"><span style="color: #4f97d7; font-weight: bold;">function</span> <span style="color: #bc6ec5; font-weight: bold;">replicateMany</span><span style="color: #4f97d7;">(</span><span style="color: #7590db;">sinks</span>, <span style="color: #7590db;">sinkProxies</span><span style="color: #4f97d7;">)</span> <span style="color: #4f97d7;">{</span>
+  <span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">sinkNames</span>: Array = Object.keys<span style="color: #bc6ec5;">(</span>sinks<span style="color: #bc6ec5;">)</span>.filter<span style="color: #bc6ec5;">(</span>
+    name =&gt; !!sinkProxies<span style="color: #2d9574;">[</span>name<span style="color: #2d9574;">]</span>,
+  <span style="color: #bc6ec5;">)</span>;
+
+  <span style="color: #4f97d7; font-weight: bold;">let</span> <span style="color: #7590db;">buffers</span> = <span style="color: #bc6ec5;">{}</span>;
+  <span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">replicators</span> = <span style="color: #bc6ec5;">{}</span>;
+
+  <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">subscribe</span>
+  sinkNames.forEach<span style="color: #bc6ec5;">(</span>name =&gt; <span style="color: #2d9574;">{</span>
+    buffers<span style="color: #67b11d;">[</span>name<span style="color: #67b11d;">]</span> = <span style="color: #67b11d;">{</span>_n: <span style="color: #b1951d;">[]</span>, _e: <span style="color: #b1951d;">[]</span><span style="color: #67b11d;">}</span>;
+    replicators<span style="color: #67b11d;">[</span>name<span style="color: #67b11d;">]</span> = <span style="color: #67b11d;">{</span>
+      next: <span style="color: #b1951d;">(</span>x<span style="color: #b1951d;">)</span> =&gt; buffers<span style="color: #b1951d;">[</span>name<span style="color: #b1951d;">]</span>._n.push<span style="color: #b1951d;">(</span>x<span style="color: #b1951d;">)</span>,
+      error: <span style="color: #b1951d;">(</span>err<span style="color: #b1951d;">)</span> =&gt; buffers<span style="color: #b1951d;">[</span>name<span style="color: #b1951d;">]</span>._e.push<span style="color: #b1951d;">(</span>err<span style="color: #b1951d;">)</span>,
+      complete: <span style="color: #b1951d;">()</span> =&gt; <span style="color: #b1951d;">{}</span>,
+    <span style="color: #67b11d;">}</span>;
+  <span style="color: #2d9574;">}</span><span style="color: #bc6ec5;">)</span>;
+
+  <span style="color: #2aa1ae; background-color: #292e34;">/*</span>
+<span style="color: #2aa1ae; background-color: #292e34;">    &#32531;&#23384;</span>
+<span style="color: #2aa1ae; background-color: #292e34;">    buffers {</span>
+<span style="color: #2aa1ae; background-color: #292e34;">      a: {</span>
+<span style="color: #2aa1ae; background-color: #292e34;">        _n: [],</span>
+<span style="color: #2aa1ae; background-color: #292e34;">        _e: []</span>
+<span style="color: #2aa1ae; background-color: #292e34;">      }</span>
+<span style="color: #2aa1ae; background-color: #292e34;">    }</span>
+
+<span style="color: #2aa1ae; background-color: #292e34;">    replicators {</span>
+<span style="color: #2aa1ae; background-color: #292e34;">      a: {</span>
+<span style="color: #2aa1ae; background-color: #292e34;">        next: fn push to buffers,</span>
+<span style="color: #2aa1ae; background-color: #292e34;">        error: fn push to buffers,</span>
+<span style="color: #2aa1ae; background-color: #292e34;">        complete: fn</span>
+<span style="color: #2aa1ae; background-color: #292e34;">      }</span>
+<span style="color: #2aa1ae; background-color: #292e34;">    }</span>
+<span style="color: #2aa1ae; background-color: #292e34;">   */</span>
+
+  <span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">subscriptions</span> = sinkNames.map<span style="color: #bc6ec5;">(</span>name =&gt;
+    xs.fromObservable<span style="color: #2d9574;">(</span>sinks<span style="color: #67b11d;">[</span>name<span style="color: #67b11d;">]</span><span style="color: #2d9574;">)</span>.subscribe<span style="color: #2d9574;">(</span>replicators<span style="color: #67b11d;">[</span>name<span style="color: #67b11d;">]</span><span style="color: #2d9574;">)</span>,
+  <span style="color: #bc6ec5;">)</span>;
+
+  sinkNames.forEach<span style="color: #bc6ec5;">(</span>name =&gt; <span style="color: #2d9574;">{</span>
+    <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">sinkProxies here</span>
+    <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">call sinkProxies &#23545;&#24212;&#30340; next, error &#20989;&#25968;</span>
+    <span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">listener</span> = sinkProxies<span style="color: #67b11d;">[</span>name<span style="color: #67b11d;">]</span>;
+    <span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">next</span> = <span style="color: #67b11d;">(</span>x<span style="color: #67b11d;">)</span> =&gt; <span style="color: #67b11d;">{</span>
+      listener._n<span style="color: #b1951d;">(</span>x<span style="color: #b1951d;">)</span>;
+    <span style="color: #67b11d;">}</span>;
+    <span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">error</span> = <span style="color: #67b11d;">(</span>err: any<span style="color: #67b11d;">)</span> =&gt; <span style="color: #67b11d;">{</span>
+      logToConsoleError<span style="color: #b1951d;">(</span>err<span style="color: #b1951d;">)</span>;
+      listener._e<span style="color: #b1951d;">(</span>err<span style="color: #b1951d;">)</span>;
+    <span style="color: #67b11d;">}</span>;
+
+    <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">buffers &#20013;&#30340;&#29616;&#26377;&#25968;&#25454;&#35843;&#29992;</span>
+    buffers<span style="color: #67b11d;">[</span>name<span style="color: #67b11d;">]</span>._n.forEach<span style="color: #67b11d;">(</span>next<span style="color: #67b11d;">)</span>;
+    buffers<span style="color: #67b11d;">[</span>name<span style="color: #67b11d;">]</span>._e.forEach<span style="color: #67b11d;">(</span>error<span style="color: #67b11d;">)</span>;
+
+    <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">&#23558;replicators&#20013;&#30340; next, error &#26367;&#25442;&#25104; sinkProxies&#30340;&#28040;&#36153;&#20989;&#25968;</span>
+    replicators<span style="color: #67b11d;">[</span>name<span style="color: #67b11d;">]</span>.next = next;
+    replicators<span style="color: #67b11d;">[</span>name<span style="color: #67b11d;">]</span>.error = error;
+    <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">because sink.subscribe(replicator) had mutated replicator to add</span>
+    <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">_n, _e, _c, we must also update these:</span>
+    replicators<span style="color: #67b11d;">[</span>name<span style="color: #67b11d;">]</span>._n = next;
+    replicators<span style="color: #67b11d;">[</span>name<span style="color: #67b11d;">]</span>._e = error;
+  <span style="color: #2d9574;">}</span><span style="color: #bc6ec5;">)</span>;
+  buffers = <span style="color: #a45bad;">null</span>; <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">free up for GC</span>
+
+  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #4f97d7; font-weight: bold;">function</span> disposeReplication<span style="color: #bc6ec5;">()</span> <span style="color: #bc6ec5;">{</span>
+    subscriptions.forEach<span style="color: #2d9574;">(</span>s =&gt; s.unsubscribe<span style="color: #67b11d;">()</span><span style="color: #2d9574;">)</span>;
+    <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">sinkProxies here</span>
+    sinkNames.forEach<span style="color: #2d9574;">(</span>name =&gt; sinkProxies<span style="color: #67b11d;">[</span>name<span style="color: #67b11d;">]</span>._c<span style="color: #67b11d;">()</span><span style="color: #2d9574;">)</span>;
+  <span style="color: #bc6ec5;">}</span>;
+<span style="color: #4f97d7;">}</span>
+
+
+
+
+<span style="color: #4f97d7; font-weight: bold;">export</span> <span style="color: #4f97d7; font-weight: bold;">function</span> setup<span style="color: #4f97d7;">(</span><span style="color: #7590db;">main</span>, <span style="color: #7590db;">drivers</span><span style="color: #4f97d7;">)</span> <span style="color: #4f97d7;">{</span>
+  <span style="color: #2aa1ae; background-color: #292e34;">/*</span>
+<span style="color: #2aa1ae; background-color: #292e34;">    drivers =&gt; create sources =&gt; main(sources)</span>
+<span style="color: #2aa1ae; background-color: #292e34;">   */</span>
+
+  <span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">sinkProxies</span> = makeSinkProxies<span style="color: #bc6ec5;">(</span>drivers<span style="color: #bc6ec5;">)</span>;
+  <span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">sources</span> = callDrivers<span style="color: #bc6ec5;">(</span>drivers, sinkProxies<span style="color: #bc6ec5;">)</span>;
+  <span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">adaptedSources</span> = adaptSources<span style="color: #bc6ec5;">(</span>sources<span style="color: #bc6ec5;">)</span>;
+  <span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">sinks</span> = main<span style="color: #bc6ec5;">(</span>adaptedSources<span style="color: #bc6ec5;">)</span>;
+  <span style="color: #4f97d7; font-weight: bold;">function</span> <span style="color: #bc6ec5; font-weight: bold;">_run</span><span style="color: #bc6ec5;">()</span> <span style="color: #bc6ec5;">{</span>
+    <span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">disposeReplication</span> = replicateMany<span style="color: #2d9574;">(</span>sinks, sinkProxies<span style="color: #2d9574;">)</span>;
+    <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #4f97d7; font-weight: bold;">function</span> dispose<span style="color: #2d9574;">()</span> <span style="color: #2d9574;">{</span>
+      disposeSources<span style="color: #67b11d;">(</span>sources<span style="color: #67b11d;">)</span>;
+      disposeReplication<span style="color: #67b11d;">()</span>;
+    <span style="color: #2d9574;">}</span>;
+  <span style="color: #bc6ec5;">}</span>
+  <span style="color: #2aa1ae; background-color: #292e34;">/*</span>
+<span style="color: #2aa1ae; background-color: #292e34;">   * example:</span>
+<span style="color: #2aa1ae; background-color: #292e34;">   *    sources =&gt; { A: stream, B: stream }</span>
+<span style="color: #2aa1ae; background-color: #292e34;">   *    drivers =&gt; { a: fn =&gt; stream, b: fn =&gt; stream }</span>
+<span style="color: #2aa1ae; background-color: #292e34;">   *</span>
+<span style="color: #2aa1ae; background-color: #292e34;">   * sinkProxies =&gt; { a: xs.createWithMemory(), b: xs.createWithMemory() }</span>
+<span style="color: #2aa1ae; background-color: #292e34;">   *</span>
+<span style="color: #2aa1ae; background-color: #292e34;">   * in callDrivers fn:</span>
+<span style="color: #2aa1ae; background-color: #292e34;">   *     dirvers[name](sinkProxies[name], name)</span>
+<span style="color: #2aa1ae; background-color: #292e34;">   *     drivers[name]._isCycleSource = name</span>
+<span style="color: #2aa1ae; background-color: #292e34;">   *</span>
+<span style="color: #2aa1ae; background-color: #292e34;">   *     @return</span>
+<span style="color: #2aa1ae; background-color: #292e34;">   *     {a: stream, b: stream}</span>
+<span style="color: #2aa1ae; background-color: #292e34;">   *</span>
+<span style="color: #2aa1ae; background-color: #292e34;">   * adaptedSources =&gt; { a: stream =&gt; stream, b: stream =&gt; stream }</span>
+<span style="color: #2aa1ae; background-color: #292e34;">   *</span>
+<span style="color: #2aa1ae; background-color: #292e34;">   * sinks fn:</span>
+<span style="color: #2aa1ae; background-color: #292e34;">   *    main({a: stream, b: stream})</span>
+<span style="color: #2aa1ae; background-color: #292e34;">   *</span>
+<span style="color: #2aa1ae; background-color: #292e34;">   * replicateMany fn:</span>
+<span style="color: #2aa1ae; background-color: #292e34;">   *</span>
+<span style="color: #2aa1ae; background-color: #292e34;">   *</span>
+<span style="color: #2aa1ae; background-color: #292e34;">   *</span>
+<span style="color: #2aa1ae; background-color: #292e34;">   */</span>
+
+  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #bc6ec5;">{</span>sinks, sources, run: _run<span style="color: #bc6ec5;">}</span>;
+<span style="color: #4f97d7;">}</span>
+
+</pre>
+</div>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-orgb2df60f" class="outline-4">
+<h4 id="orgb2df60f"><span class="section-number-4">1.5.7</span> isolate</h4>
+<div class="outline-text-4" id="text-1-5-7">
+<p>
+   When the isolated component is invoked, each source provided to it is isolated to the given `scope` using `source.isolateSource(source, scope)`,
+if possible. Likewise, the sinks returned from the isolated component are isolated to the given `scope` using `source.isolateSink(sink, scope)`.
+</p>
+</div>
+
+<ol class="org-ol">
+<li><a id="org2a70ce4"></a>isolate in cycle dom<br />
+<div class="outline-text-6" id="text-1-5-7-0-1">
+<p>
+index.js in @cycle/isolate
+</p>
+<div class="org-src-container">
+<pre class="src src-js"><span style="color: #4f97d7; font-weight: bold;">function</span> <span style="color: #bc6ec5; font-weight: bold;">newScope</span><span style="color: #4f97d7;">()</span>: string <span style="color: #4f97d7;">{</span>
+  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #2d9574;">`cycle${++counter}`</span>;
+<span style="color: #4f97d7;">}</span>
+
+<span style="color: #4f97d7; font-weight: bold;">function</span> <span style="color: #bc6ec5; font-weight: bold;">isolate</span>&lt;InnerSo, InnerSi&gt;<span style="color: #4f97d7;">(</span>
+  component: Component&lt;InnerSo, InnerSi&gt;,
+  scope: any = newScope<span style="color: #bc6ec5;">()</span>, <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">&#19981;&#25163;&#21160;&#28155;&#21152;scope&#30340;&#26102;&#20505;&#65292;&#33258;&#21160;&#25353;&#39034;&#24207;&#29983;&#25104;</span>
+<span style="color: #4f97d7;">)</span>: Component&lt;OuterSo, OuterSi&gt; <span style="color: #4f97d7;">{</span>
+  checkIsolateArgs<span style="color: #bc6ec5;">(</span>component, scope<span style="color: #bc6ec5;">)</span>;
+  <span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">randomScope</span> = <span style="color: #4f97d7; font-weight: bold;">typeof</span> scope === <span style="color: #2d9574;">'object'</span> ? newScope<span style="color: #bc6ec5;">()</span> : <span style="color: #2d9574;">''</span>;
+  <span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">scopes</span>: any = <span style="color: #4f97d7; font-weight: bold;">typeof</span> scope === <span style="color: #2d9574;">'string'</span> || <span style="color: #4f97d7; font-weight: bold;">typeof</span> scope === <span style="color: #2d9574;">'object'</span>
+        ? scope
+        : scope.toString<span style="color: #bc6ec5;">()</span>;
+  <span style="color: #4f97d7; font-weight: bold;">return</span> <span style="color: #4f97d7; font-weight: bold;">function</span> wrappedComponent<span style="color: #bc6ec5;">(</span>
+    outerSources: OuterSo,
+    ...rest: Array&lt;any&gt;
+  <span style="color: #bc6ec5;">)</span>: OuterSi <span style="color: #bc6ec5;">{</span>
+    <span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">scopesPerChannel</span> = normalizeScopes<span style="color: #2d9574;">(</span>outerSources, scopes, randomScope<span style="color: #2d9574;">)</span>;
+    <span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">innerSources</span> = isolateAllSources<span style="color: #2d9574;">(</span>outerSources, scopesPerChannel<span style="color: #2d9574;">)</span>;
+    <span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">innerSinks</span> = component<span style="color: #2d9574;">(</span>innerSources, ...rest<span style="color: #2d9574;">)</span>;
+    <span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">outerSinks</span> = isolateAllSinks<span style="color: #2d9574;">(</span>
+      outerSources,
+      innerSinks,
+      scopesPerChannel,
+    <span style="color: #2d9574;">)</span>;
+    <span style="color: #4f97d7; font-weight: bold;">return</span> outerSinks;
+  <span style="color: #bc6ec5;">}</span>;
+<span style="color: #4f97d7;">}</span>
+</pre>
+</div>
+
+<p>
+isolate.js in @cycle/dom
+</p>
+<div class="org-src-container">
+<pre class="src src-js"><span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">SCOPE_PREFIX</span> = <span style="color: #2d9574;">'$$CYCLEDOM$$-'</span>;
+
+<span style="color: #4f97d7; font-weight: bold;">function</span> <span style="color: #bc6ec5; font-weight: bold;">totalIsolateSource</span><span style="color: #4f97d7;">(</span><span style="color: #7590db;">source</span>, <span style="color: #7590db;">scope</span><span style="color: #4f97d7;">)</span> <span style="color: #4f97d7;">{</span>
+  <span style="color: #4f97d7; font-weight: bold;">return</span> source.select<span style="color: #bc6ec5;">(</span>SCOPE_PREFIX + scope<span style="color: #bc6ec5;">)</span>;
+<span style="color: #4f97d7;">}</span>
+
+<span style="color: #4f97d7; font-weight: bold;">export</span> <span style="color: #4f97d7; font-weight: bold;">function</span> isolateSource<span style="color: #4f97d7;">(</span><span style="color: #7590db;">source</span>,<span style="color: #7590db;">scope</span><span style="color: #4f97d7;">)</span> <span style="color: #4f97d7;">{</span>
+  <span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #bc6ec5;">(</span>scope === <span style="color: #2d9574;">':root'</span><span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span>
+    <span style="color: #4f97d7; font-weight: bold;">return</span> source;
+  <span style="color: #bc6ec5;">}</span> <span style="color: #4f97d7; font-weight: bold;">else</span> <span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #bc6ec5;">(</span>isClassOrId<span style="color: #2d9574;">(</span>scope<span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span>
+    <span style="color: #4f97d7; font-weight: bold;">return</span> siblingIsolateSource<span style="color: #2d9574;">(</span>source, scope<span style="color: #2d9574;">)</span>;
+  <span style="color: #bc6ec5;">}</span> <span style="color: #4f97d7; font-weight: bold;">else</span> <span style="color: #bc6ec5;">{</span>
+    <span style="color: #4f97d7; font-weight: bold;">return</span> totalIsolateSource<span style="color: #2d9574;">(</span>source, scope<span style="color: #2d9574;">)</span>;
+  <span style="color: #bc6ec5;">}</span>
+<span style="color: #4f97d7;">}</span>
+
+<span style="color: #4f97d7; font-weight: bold;">export</span> <span style="color: #4f97d7; font-weight: bold;">function</span> isolateSource<span style="color: #4f97d7;">(</span><span style="color: #7590db;">source</span>,<span style="color: #7590db;">scope</span><span style="color: #4f97d7;">)</span> <span style="color: #4f97d7;">{</span>
+  <span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #bc6ec5;">(</span>scope === <span style="color: #2d9574;">':root'</span><span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span>
+    <span style="color: #4f97d7; font-weight: bold;">return</span> source;
+  <span style="color: #bc6ec5;">}</span> <span style="color: #4f97d7; font-weight: bold;">else</span> <span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #bc6ec5;">(</span>isClassOrId<span style="color: #2d9574;">(</span>scope<span style="color: #2d9574;">)</span><span style="color: #bc6ec5;">)</span> <span style="color: #bc6ec5;">{</span>
+    <span style="color: #4f97d7; font-weight: bold;">return</span> siblingIsolateSource<span style="color: #2d9574;">(</span>source, scope<span style="color: #2d9574;">)</span>;
+  <span style="color: #bc6ec5;">}</span> <span style="color: #4f97d7; font-weight: bold;">else</span> <span style="color: #bc6ec5;">{</span>
+    <span style="color: #4f97d7; font-weight: bold;">return</span> totalIsolateSource<span style="color: #2d9574;">(</span>source, scope<span style="color: #2d9574;">)</span>;
+  <span style="color: #bc6ec5;">}</span>
+<span style="color: #4f97d7;">}</span>
+
+<span style="color: #2aa1ae; background-color: #292e34;">/*</span>
+<span style="color: #2aa1ae; background-color: #292e34;">  fullScope&#26469;&#28304;</span>
+
+<span style="color: #2aa1ae; background-color: #292e34;">  MainDOMSource:  (_namespace [])</span>
+<span style="color: #2aa1ae; background-color: #292e34;">    const prevFullScope = getFullScope(this._namespace);</span>
+<span style="color: #2aa1ae; background-color: #292e34;">    const nextFullScope = [prevFullScope, scope].filter(x =&gt; !!x).join('-');</span>
+<span style="color: #2aa1ae; background-color: #292e34;">    return totalIsolateSink(sink, nextFullScope);</span>
+
+<span style="color: #2aa1ae; background-color: #292e34;">*/</span>
+<span style="color: #4f97d7; font-weight: bold;">export</span> <span style="color: #4f97d7; font-weight: bold;">function</span> totalIsolateSink<span style="color: #4f97d7;">(</span>
+  sink: Stream&lt;VNode | <span style="color: #a45bad;">null</span> | <span style="color: #a45bad;">undefined</span>&gt;,
+  fullScope: string,
+<span style="color: #4f97d7;">)</span>: Stream&lt;VNode | <span style="color: #a45bad;">null</span> | <span style="color: #a45bad;">undefined</span>&gt; <span style="color: #4f97d7;">{</span>
+  <span style="color: #4f97d7; font-weight: bold;">return</span> sink.map<span style="color: #bc6ec5;">(</span>node =&gt; <span style="color: #2d9574;">{</span>
+    <span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #67b11d;">(</span>!node<span style="color: #67b11d;">)</span> <span style="color: #67b11d;">{</span>
+      <span style="color: #4f97d7; font-weight: bold;">return</span> node;
+    <span style="color: #67b11d;">}</span>
+    <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">Ignore if already had up-to-date full scope in vnode.data.isolate</span>
+    <span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #67b11d;">(</span>node.data &amp;&amp; <span style="color: #b1951d;">(</span>node.data as any<span style="color: #b1951d;">)</span>.isolate<span style="color: #67b11d;">)</span> <span style="color: #67b11d;">{</span>
+      <span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">isolateData</span> = <span style="color: #b1951d;">(</span>node.data as any<span style="color: #b1951d;">)</span>.isolate as string;
+      <span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">prevFullScopeNum</span> = isolateData.replace<span style="color: #b1951d;">(</span><span style="color: #2d9574;">/(cycle|\-)/</span>g, <span style="color: #2d9574;">''</span><span style="color: #b1951d;">)</span>;
+      <span style="color: #4f97d7; font-weight: bold;">const</span> <span style="color: #7590db;">fullScopeNum</span> = fullScope.replace<span style="color: #b1951d;">(</span><span style="color: #2d9574;">/(cycle|\-)/</span>g, <span style="color: #2d9574;">''</span><span style="color: #b1951d;">)</span>;
+
+      <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">number</span>
+      <span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #b1951d;">(</span>
+        isNaN<span style="color: #4f97d7;">(</span>parseInt<span style="color: #bc6ec5;">(</span>prevFullScopeNum<span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span> ||
+        isNaN<span style="color: #4f97d7;">(</span>parseInt<span style="color: #bc6ec5;">(</span>fullScopeNum<span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span> ||
+        prevFullScopeNum &gt; fullScopeNum
+      <span style="color: #b1951d;">)</span> <span style="color: #b1951d;">{</span>
+        <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">&gt; is lexicographic string comparison</span>
+        <span style="color: #4f97d7; font-weight: bold;">return</span> node;
+      <span style="color: #b1951d;">}</span>
+    <span style="color: #67b11d;">}</span>
+
+    <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">Insert up-to-date full scope in vnode.data.isolate, and also a key if needed</span>
+    <span style="color: #2aa1ae; background-color: #292e34;">// </span><span style="color: #2aa1ae; background-color: #292e34;">&#27880;&#24847;&#19979;&#26041;&#20195;&#30721;</span>
+    node.data = node.data || <span style="color: #67b11d;">{}</span>;
+    <span style="color: #67b11d;">(</span>node.data as any<span style="color: #67b11d;">)</span>.isolate = fullScope;
+    <span style="color: #4f97d7; font-weight: bold;">if</span> <span style="color: #67b11d;">(</span><span style="color: #4f97d7; font-weight: bold;">typeof</span> node.key === <span style="color: #2d9574;">'undefined'</span><span style="color: #67b11d;">)</span> <span style="color: #67b11d;">{</span>
+      node.key = SCOPE_PREFIX + fullScope;
+    <span style="color: #67b11d;">}</span>
+    <span style="color: #4f97d7; font-weight: bold;">return</span> node;
+  <span style="color: #2d9574;">}</span><span style="color: #bc6ec5;">)</span>;
+<span style="color: #4f97d7;">}</span>
+</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: 陈超</p>
+<p class="date">Created: 2017-10-18 Wed 14:38</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

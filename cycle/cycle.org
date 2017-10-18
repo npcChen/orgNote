@@ -1,5 +1,6 @@
+#+SETUPFILE: ./theme/theme-bigblow.setup
 * Cycle.js
-** cycle.js overvie点
+** cycle.js overview
 
    Multiple state streams
    => merged/combine into single state stream
@@ -46,37 +47,12 @@
     /*Observable is a push system*/
     
 *** Observable
-    + Purity
-    + Flow
-    + Values
+    *Observables are lazy Push collections of multiple values*
 
-**** 常见的几种JS对象对比
-     1. Function: a lazily evaluated computation that synchronously returns a single value on invocation.
-     2. Generator: a lazily evaluated computation that synchronously returns zero to (potentially) infinite values on iteration.
-     3. Promise: a computation that may (or may not) eventually return a single value.
-     4. Observable a lazily evaluated computation that can synchronously or asynchronously return zero to (potentially) infinite values from the time it's invoked onwards.
+**** Observable can be multicast or unicast
+     [[multicast-and-unicast]]
 
-     |            | lazy  | values       | async/sync          |
-     |------------+-------+--------------+---------------------|
-     | Function   | true  | 0 / single   | sync                |
-     | Generator  | true  | 0 ~ infinite | sync (代码执行顺序) |
-     | Promise    | false | 0 / single   | async               |
-     | Observable | true  | 0 ~ infinite | async               |
-
-
-*** observable VS promise  [[https://stackoverflow.com/questions/37364973/angular-promise-vs-observable][stackoverflow]]
-    | observable           | promise                                          |
-    |----------------------+--------------------------------------------------|
-    | <l20>                | <l48>                                            |
-    | like a stream        | only once                                        |
-    | async or sync        | async                                            |
-    | lazy                 | not lazy                                         |
-    | cancellable          | cancellable only in some thirdpart package       |
-    | retriable            |                                                  |
-
-    #+ATTR_ORG: :width 600
-    [[file:./images/observable_vs_promise.png]]
-
+**** Observables are able to deliver values either synchronously or asynchronously
     - observable async and sync
       #+BEGIN_SRC js :results output
         const Rx = require('rxjs');
@@ -134,13 +110,135 @@
       #+END_SRC
 
       #+RESULTS:
-      : before
-      : after
-      : got value 1
-      : got value 2
-      : got value 3
-      : got value 4
-      : done
+
+
+
+**** Observable may be hot or cold
+     [[https://medium.com/@benlesh/hot-vs-cold-observables-f8094ed53339][Medium:article]]
+     
+***** cold
+     #+BEGIN_SRC js :results output
+       const Rx = require('rxjs');
+
+       const observable = Rx.Observable.create(function(observer) {
+          observer.next(1);
+          observer.next(2);
+
+          setTimeout(() => {
+            observer.next(3);
+          }, 500)
+        });
+
+       observable.subscribe({
+         next: (r) => console.log('a:' + r),
+       });
+
+       observable.subscribe({
+         next: (r) => console.log('b:' + r),
+       });
+     #+END_SRC
+
+     #+RESULTS:
+     : a:1
+     : a:2
+     : b:1
+     : b:2
+     : a:3
+     : b:3
+     
+***** hot
+      Rx.Observable.share: /Returns a new Observable that multicasts (shares) the original Observable. As long as there is at least one Subscriber this Observable will be subscribed and emitting data. When all subscribers have unsubscribed it will unsubscribe from the source Observable. Because the Observable is multicasting it makes the stream hot. This is an alias for .publish().refCount()./
+      #+BEGIN_SRC js :results output
+        const Rx = require('rxjs');
+        const observable = Rx.Observable.create(function(observer) {
+          observer.next(1);
+          observer.next(2);
+
+          setTimeout(() => {
+            observer.next(3);
+          }, 500)
+        }).share();
+
+        observable.subscribe({
+          next: (r) => console.log('a:' + r)
+        })
+
+        setTimeout(() => {
+          observable.subscribe({
+            next: (r) => console.log('b:' + r)
+          })
+        }, 100);
+      #+END_SRC
+
+      #+RESULTS:
+      : a:1
+      : a:2
+      : a:3
+      : b:3
+
+***** hot observable and subject
+      #+BEGIN_SRC js :results output
+        const Rx = require('rxjs');
+        const subject = new Rx.Subject();
+        const cold = Rx.Observable.create(function(observer) {
+          observer.next(1);
+          observer.next(2);
+
+          setTimeout(() => {
+            observer.next(3);
+          }, 500)
+        }).share();
+
+        const hot = cold.multicast(subject);
+
+        hot.subscribe({
+          next: (r) => console.log('a:' + r)
+        })
+
+        hot.connect();
+
+        setTimeout(() => {
+          hot.subscribe({
+            next: (r) => console.log('b:' + r)
+          })
+        }, 100);
+      #+END_SRC
+
+      #+RESULTS:
+      : a:1
+      : a:2
+      : a:3
+      : b:3
+
+**** 常见的几种JS对象对比
+     1. Function: a lazily evaluated computation that synchronously returns a single value on invocation.
+     2. Generator: a lazily evaluated computation that synchronously returns zero to (potentially) infinite values on iteration.
+     3. Promise: a computation that may (or may not) eventually return a single value.
+     4. Observable a lazily evaluated computation that can synchronously or asynchronously return zero to (potentially) infinite values from the time it's invoked onwards.
+
+     |            | lazy  | values       | async/sync          |
+     |------------+-------+--------------+---------------------|
+     | Function   | true  | 0 / single   | sync                |
+     | Generator  | true  | 0 ~ infinite | sync (代码执行顺序) |
+     | Promise    | false | 0 / single   | async               |
+     | Observable | true  | 0 ~ infinite | async               |
+
+
+
+*** observable VS promise  [[https://stackoverflow.com/questions/37364973/angular-promise-vs-observable][stackoverflow]]
+    | observable           | promise                                          |
+    |----------------------+--------------------------------------------------|
+    | <l20>                | <l48>                                            |
+    | like a stream        | only once                                        |
+    | async or sync        | async                                            |
+    | lazy                 | not lazy                                         |
+    | cancellable          | cancellable only in some thirdpart package       |
+    | retriable            |                                                  |
+
+    #+ATTR_ORG: :width 400
+    #+ATTR_HTML: :width 600
+    [[file:./images/observable_vs_promise.png]]
+
 
 *** Observer
     *An Observer is a consumer of values delivered by an Observable*
@@ -168,6 +266,7 @@
     *Every Subject is an Observable*
     *Every Subject is an Observer*
 
+**** <<multicast-and-unicast>> subject multicast
     - difference between subject and observable
     #+BEGIN_SRC js :results output
       const Rx = require('rxjs');
@@ -386,12 +485,6 @@
     - [[http://reactivex.io/rxjs/manual/overview.html][Rxjs overview]]
     - [[https://medium.com/@benlesh][Medium: Ben Lesh]]
     
-
-
-
- 
-
-
 ** VDOM => [[https://github.com/snabbdom/snabbdom][snabbdom]]
 
 ** a simple cycle example
@@ -413,7 +506,7 @@
        - [Request] is a stream of messages to the OS.
      
 *** MVI
-***** Reactive programming:
+**** Reactive programming:
      In computing, reactive programming is an *asynchronous programming* paradigm concerned with *data streams* and *the propagation of change*
 
      - [[https://en.wikipedia.org/wiki/Reactive_programming][wikipedia]]
@@ -421,9 +514,10 @@
      - [[http://www.infoq.com/cn/articles/functional-reactive-programming][infoQ]]
 
      *Reactivity is an important aspect in Cycle.js*
-     
-***** MVC     
-      #+ATTR_ORG: :width 400
+
+**** MVC     
+      #+ATTR_ORG: width 200
+      #+ATTR_HTML: :width 600
       [[file:./images/mvc-diagram.svg.png]]
 
 
@@ -432,7 +526,23 @@
       Trygve Reenskaug, inventor of MVC:
           The essential purpose of MVC is to bridge the gap between the human user’s mental model and the digital model that exists in the computer.
 
-      Model-View-Intent (MVI) is *reactive*, *functional*, and follows the *core idea in MVC*.
+****  MVI
+     - intent() function
+       + Purpose: interpret DOM events as user’s intended actions
+       + Input: DOM source
+       + Output: Action Streams
+
+     - model() function
+       + Purpose: manage state
+       + Input: Action Streams
+       + Output: State Stream
+
+     - view() function
+       + Purpose: visually represent state from the Model
+       + Input: State Stream
+       + Output: Stream of Virtual DOM nodes as the DOM Driver sink
+
+     Model-View-Intent (MVI) is *reactive*, *functional*, and follows the *core idea in MVC*.
 
 *** CSS selectors
 ***** code in example
@@ -452,19 +562,20 @@
 *** Component
 ***** component dataflow
      #+ATTR_ORG: :width 400
+    #+ATTR_HTML: :width 400
       [[file:./images/dataflow-component.svg.png]]
 
 ***** nested component
      #+ATTR_ORG: :width 400
+     #+ATTR_HTML: :width 400
      [[file:./images/nested-components.svg.png]]
 
 
 *** Driver
      *Drivers are functions that listen to sink streams (their input), perform imperative side effects, and may return source streams (their output)*
      
-     sources => main  => sinks => Driver
-     ||                             ||
-     <================================
+     
+     sources => main  => sinks => Driver => sources
 
 ***** input / output
       input: expected to be a single xstream stream
@@ -594,7 +705,7 @@
       export function setup(main, drivers) {
         /*
           drivers => create sources => main(sources)
-         ,*/
+         */
 
         const sinkProxies = makeSinkProxies(drivers);
         const sources = callDrivers(drivers, sinkProxies);
@@ -608,29 +719,29 @@
           };
         }
         /*
-         ,* example:
-         ,*    sources => { A: stream, B: stream }
-         ,*    drivers => { a: fn => stream, b: fn => stream }
-         ,*
-         ,* sinkProxies => { a: xs.createWithMemory(), b: xs.createWithMemory() }
-         ,*
-         ,* in callDrivers fn:
-         ,*     dirvers[name](sinkProxies[name], name)
-         ,*     drivers[name]._isCycleSource = name
-         ,*
-         ,*     @return
-         ,*     {a: stream, b: stream}
-         ,*
-         ,* adaptedSources => { a: stream => stream, b: stream => stream }
-         ,*
-         ,* sinks fn:
-         ,*    main({a: stream, b: stream})
-         ,*
-         ,* replicateMany fn:
-         ,*
-         ,*
-         ,*
-         ,*/
+         * example:
+         *    sources => { A: stream, B: stream }
+         *    drivers => { a: fn => stream, b: fn => stream }
+         *
+         * sinkProxies => { a: xs.createWithMemory(), b: xs.createWithMemory() }
+         *
+         * in callDrivers fn:
+         *     dirvers[name](sinkProxies[name], name)
+         *     drivers[name]._isCycleSource = name
+         *
+         *     @return
+         *     {a: stream, b: stream}
+         *
+         * adaptedSources => { a: stream => stream, b: stream => stream }
+         *
+         * sinks fn:
+         *    main({a: stream, b: stream})
+         *
+         * replicateMany fn:
+         *
+         *
+         *
+         */
 
         return {sinks, sources, run: _run};
       }
@@ -750,3 +861,5 @@
           });
         }
       #+END_SRC
+
+
