@@ -9664,6 +9664,7 @@ function main(sources) {
         dom1 = _ref2[0],
         dom2 = _ref2[1];
 
+    console.log(dom1, dom2);
     return (0, _dom.div)([dom1, dom2]);
   });
 
@@ -27279,6 +27280,9 @@ var _isolate2 = _interopRequireDefault(_isolate);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// stream $
+// {value/value$ => stream}
+
 // indent
 function indent(domSource) {
   return {
@@ -27296,7 +27300,7 @@ function model(props$, actions) {
     return { value: value };
   });
 
-  return _rxjs.Observable.merge(newVal$, initVal$).shareReplay(1);
+  return _rxjs.Observable.merge(newVal$, initVal$).shareReplay(1); // {value: input}
 }
 
 // view

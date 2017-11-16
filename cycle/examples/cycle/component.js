@@ -2,6 +2,9 @@ import {Observable} from 'rxjs';
 import {div, input} from '@cycle/dom';
 import isolate from '@cycle/isolate';
 
+// stream $
+// {value/value$ => stream}
+
 // indent
 function indent(domSource) {
   return {
@@ -20,7 +23,7 @@ function model(props$, actions) {
 
   return Observable
     .merge(newVal$, initVal$)
-    .shareReplay(1);
+    .shareReplay(1); // {value: input}
 }
 
 // view

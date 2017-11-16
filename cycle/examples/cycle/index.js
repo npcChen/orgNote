@@ -23,6 +23,7 @@ function main(sources) {
 
   const vdom$ = Observable.combineLatest(child1.DOM, child2.DOM)
     .map(([dom1, dom2]) => {
+      console.log(dom1, dom2);
       return div([
         dom1,
         dom2
